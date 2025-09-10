@@ -1,5 +1,6 @@
 import React from "react";
 import SectionWrapper from "./SectionWrapper";
+import { motion } from "framer-motion";
 
 const experiences = [
   {
@@ -30,10 +31,14 @@ export default function Experience() {
   return (
     <SectionWrapper id="experience" title="Experience & Projects">
       <div className="grid gap-6 md:grid-cols-2">
-        {experiences.map((exp) => (
-          <article
+        {experiences.map((exp, i) => (
+          <motion.article
             key={`${exp.title}-${exp.company}`}
             className="p-6 rounded-lg shadow-md bg-white hover:shadow-lg transition"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: i * 0.08 }}
           >
             <h3 className="text-xl font-semibold">{exp.title}</h3>
             <p className="text-gray-600">{exp.company} • {exp.date}</p>
@@ -49,7 +54,7 @@ export default function Experience() {
                 </ul>
               </div>
             )}
-          </article>
+          </motion.article>
         ))}
       </div>
     </SectionWrapper>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SectionWrapper from "./SectionWrapper";
+import { motion } from "framer-motion";
 import { FaEnvelope, FaLinkedin, FaGithub, FaCopy, FaPhone, FaCheck } from "react-icons/fa";
 
 export default function Contact() {
@@ -34,8 +35,13 @@ export default function Contact() {
 
   return (
     <SectionWrapper id="contact" title="Contact">
-      {/* Buttons row: stacks on mobile, row on larger screens */}
-      <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3">
+      <motion.div
+        className="flex flex-col sm:flex-row flex-wrap items-center gap-3"
+        initial={{ opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.45 }}
+      >
         <button
           onClick={openGmailCompose}
           className="inline-flex items-center justify-center gap-3 rounded-full bg-blue-600 text-white px-5 py-2.5 shadow hover:bg-blue-700 transition w-full sm:w-auto"
@@ -73,13 +79,18 @@ export default function Contact() {
           <FaGithub />
           GitHub
         </a>
-      </div>
+      </motion.div>
 
-      {/* Phone row — won't wrap now */}
-      <div className="mt-6 flex items-center gap-3 text-gray-800">
+      <motion.div
+        className="mt-6 flex items-center gap-3 text-gray-800"
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.35, delay: 0.1 }}
+      >
         <FaPhone />
         <span className="font-medium whitespace-nowrap">{PHONE}</span>
-      </div>
+      </motion.div>
     </SectionWrapper>
   );
 }
