@@ -16,6 +16,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const navRef = useRef(null);
+  const clickingRef = useRef(false); // temporarily suppress scroll re-highlighting during programmatic scroll
 
   // theme init
   useEffect(() => {
@@ -32,35 +33,65 @@ export default function Navbar() {
     localStorage.setItem("theme", next ? "dark" : "light");
   };
 
-  // range-based active link highlighting
+  // robust active highlight
   useEffect(() => {
     const handleScroll = () => {
+      if (clickingRef.current) return; // let the click handler control during smooth scroll
+
       const navH = navRef.current ? navRef.current.offsetHeight : 64;
-      const scrollPos = window.scrollY + navH + 10;
+      const scrollY = window.scrollY;
+      const anchor = scrollY + navH + 6; // “line” below navbar
 
-      let current = links[0].id;
-
-      for (const l of links) {
-        const el = document.getElementById(l.id);
-        if (!el) continue;
-        const top = el.offsetTop - navH - 20; // small buffer
-        const bottom = top + el.offsetHeight;
-
-        if (scrollPos >= top && scrollPos < bottom) {
-          current = l.id;
-          break;
-        }
+      // Top: always hero
+      if (scrollY <= 2) {
+        setActive("hero");
+        return;
       }
 
-      // if we scrolled past all, highlight last
-      const lastEl = document.getElementById(links[links.length - 1].id);
-      if (lastEl && scrollPos >= lastEl.offsetTop) {
-        current = links[links.length - 1].id;
+      // Build ordered sections with positions
+      const sections = links
+        .map((l) => {
+          const el = document.getElementById(l.id);
+          if (!el) return null;
+          const top = el.offsetTop;
+          const height = el.offsetHeight || 0;
+          return { id: l.id, top, bottom: top + height };
+        })
+        .filter(Boolean)
+        .sort((a, b) => a.top - b.top);
+
+      if (!sections.length) return;
+
+      // Bottom: ensure last highlights
+      const doc = document.documentElement;
+      const scrollBottom = scrollY + window.innerHeight;
+      const scrollHeight = Math.max(
+        doc.scrollHeight,
+        doc.offsetHeight,
+        doc.clientHeight,
+        document.body ? document.body.scrollHeight : 0
+      );
+      if (scrollBottom >= scrollHeight - 2) {
+        setActive(sections[sections.length - 1].id);
+        return;
+      }
+
+      // Pick the section whose top is just above the anchor
+      let current = sections[0].id;
+      for (let i = 0; i < sections.length; i++) {
+        if (anchor < sections[i].top) {
+          current = i === 0 ? sections[0].id : sections[i - 1].id;
+          break;
+        }
+        if (i === sections.length - 1) {
+          current = sections[i].id;
+        }
       }
 
       setActive((prev) => (prev === current ? prev : current));
     };
 
+    // initial sync
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
@@ -70,15 +101,31 @@ export default function Navbar() {
     };
   }, []);
 
-  const onNavClick = (id) => {
-    setActive(id); // instant feedback
-    setOpen(false);
+  // click: smooth scroll to exact offset + immediate highlight
+  const onNavClick = (id) => (e) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const navH = navRef.current ? navRef.current.offsetHeight : 64;
+    const targetTop = el.offsetTop - navH - 6;
+
+    clickingRef.current = true;       // pause scroll-based updates briefly
+    setActive(id);                    // instant feedback
+    setOpen(false);                   // close mobile menu
+
+    window.scrollTo({ top: Math.max(targetTop, 0), behavior: "smooth" });
+
+    // Re-enable scroll-based updates after the smooth scroll likely completes
+    setTimeout(() => {
+      clickingRef.current = false;
+    }, 450);
   };
 
   return (
     <nav ref={navRef} className="fixed top-0 w-full bg-white/90 dark:bg-gray-900/80 backdrop-blur shadow z-50">
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-        <a href="#hero" onClick={() => onNavClick("hero")} className="font-bold text-xl tracking-tight text-gray-900 dark:text-gray-100">
+        <a href="#hero" onClick={onNavClick("hero")} className="font-bold text-xl tracking-tight text-gray-900 dark:text-gray-100">
           <span className="text-brand">Ashish</span> Nayak
         </a>
 
@@ -88,7 +135,7 @@ export default function Navbar() {
             <li key={l.id}>
               <a
                 href={`#${l.id}`}
-                onClick={() => onNavClick(l.id)}
+                onClick={onNavClick(l.id)}
                 className={`transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded ${
                   active === l.id
                     ? "text-brand font-semibold"
@@ -141,7 +188,7 @@ export default function Navbar() {
                       ? "text-brand font-semibold"
                       : "text-gray-800 dark:text-gray-200 hover:text-brand"
                   }`}
-                  onClick={() => onNavClick(l.id)}
+                  onClick={onNavClick(l.id)}
                 >
                   {l.name}
                 </a>
