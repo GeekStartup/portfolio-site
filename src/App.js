@@ -7,6 +7,7 @@ import Skills from "./components/Skills";
 import Education from "./components/Education";
 import Certifications from "./components/Certifications";
 import BackToTop from "./components/BackToTop";
+import Footer from "./components/Footer";  // NEW
 
 function App() {
   return (
@@ -19,9 +20,9 @@ function App() {
         <Skills />
         <Education />
         <Certifications />
-        {/* Contact removed */}
       </main>
       <BackToTop />
+      <Footer /> {/* NEW */}
     </div>
   );
 }
