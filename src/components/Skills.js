@@ -1,29 +1,21 @@
 import React from "react";
 
 const skills = [
-  { name: "JavaScript", level: 90 },
-  { name: "React", level: 85 },
-  { name: "Node.js", level: 80 },
-  { name: "TailwindCSS", level: 75 },
-  { name: "AWS", level: 70 },
+  "JavaScript", "React", "Node.js", "Tailwind CSS", "Python", "Java", "SQL", "Git"
 ];
 
 const Skills = () => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md space-y-4">
-      <h2 className="text-xl font-bold mb-4">Skills</h2>
-      {skills.map((skill, idx) => (
-        <div key={idx}>
-          <p className="text-gray-700 font-medium">{skill.name}</p>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-blue-600 h-2 rounded-full"
-              style={{ width: `${skill.level}%` }}
-            ></div>
+    <section id="skills" className="bg-gray-50 px-4 md:px-20 py-12">
+      <h2 className="text-3xl font-bold mb-6">Skills</h2>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {skills.map((skill) => (
+          <div key={skill} className="bg-white shadow-md rounded-lg p-4 text-center hover:scale-105 transform transition">
+            {skill}
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </section>
   );
 };
 
