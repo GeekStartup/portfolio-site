@@ -1,53 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const Navbar = () => {
-  const [active, setActive] = useState("");
-  const links = [
-    { id: "hero", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "experience", label: "Experience" },
-    { id: "projects", label: "Projects" },
-    { id: "skills", label: "Skills" },
-    { id: "contact", label: "Contact" },
-  ];
+const links = ["hero", "skills", "experience", "education", "certifications", "contact"];
 
-  // Track active section on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const sections = document.querySelectorAll("section");
-      sections.forEach((section) => {
-        if (
-          scrollPosition >= section.offsetTop - 100 &&
-          scrollPosition < section.offsetTop + section.offsetHeight - 100
-        ) {
-          setActive(section.id);
-        }
-      });
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // links are static, no need to add them here
+function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setOpen(false);
+  };
 
   return (
-    <nav className="fixed w-full bg-white shadow z-50">
-      <ul className="flex justify-center space-x-6 py-4">
-        {links.map((link) => (
-          <li key={link.id}>
-            <a
-              href={`#${link.id}`}
-              className={`${
-                active === link.id ? "text-blue-600 font-bold" : "text-gray-700"
-              } hover:text-blue-600`}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <nav className="fixed w-full bg-white shadow-md z-50">
+      <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
+        <div className="font-bold text-xl cursor-pointer" onClick={() => scrollTo("hero")}>Ashish</div>
+        <div className="hidden md:flex space-x-6">
+          {links.map((link) => (
+            <button key={link} onClick={() => scrollTo(link)} className="hover:text-blue-600 transition">{link.charAt(0).toUpperCase() + link.slice(1)}</button>
+          ))}
+        </div>
+        <button className="md:hidden" onClick={() => setOpen(!open)}>☰</button>
+      </div>
+      {open && (
+        <div className="flex flex-col items-center bg-white shadow-md md:hidden py-4">
+          {links.map((link) => (
+            <button key={link} onClick={() => scrollTo(link)} className="py-2">{link.charAt(0).toUpperCase() + link.slice(1)}</button>
+          ))}
+        </div>
+      )}
     </nav>
   );
-};
+}
 
 export default Navbar;

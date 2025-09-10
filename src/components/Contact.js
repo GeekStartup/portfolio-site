@@ -1,21 +1,34 @@
 import React from "react";
-import { FaEnvelope, FaLinkedin, FaPhone } from "react-icons/fa";
+import { FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 function Contact() {
   return (
-    <section id="contact" className="py-16 px-4 md:px-20">
-      <h2 className="text-3xl font-bold mb-4">Contact Me</h2>
-      <div className="flex items-center space-x-6">
-        <a href="mailto:ashish@example.com">
-          <FaEnvelope size={30} />
+    <section id="contact" className="p-6 md:p-16 bg-blue-100 text-blue-900">
+      <h2 className="text-3xl font-bold mb-6">Contact</h2>
+      <div className="flex flex-col md:flex-row items-center gap-4">
+        {/* Email */}
+        <a
+          href="mailto:ashish@example.com"
+          className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-full shadow hover:bg-gray-100 transition"
+        >
+          <FaEnvelope /> Email
         </a>
-        <a href="https://www.linkedin.com/in/ashish-nayak/" target="_blank" rel="noreferrer">
-          <FaLinkedin size={30} />
+
+        {/* LinkedIn */}
+        <a
+          href="https://linkedin.com/in/ashish-k-nayak"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-full shadow hover:bg-gray-100 transition"
+        >
+          <FaLinkedin /> LinkedIn
         </a>
-        <span className="flex items-center space-x-2">
-          <FaPhone size={30} />
-          <span>+91 98765 43210</span>
-        </span>
+
+        {/* Phone */}
+        <div className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-full shadow">
+          <span>📞</span>
+          <span>+91-XXXXXXXXXX</span>
+        </div>
       </div>
     </section>
   );
