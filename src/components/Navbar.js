@@ -15,7 +15,7 @@ export default function Navbar() {
           <a href="#contact" className="hover:text-primary">Contact</a>
         </div>
         <button
-          className="md:hidden"
+          className="md:hidden text-2xl"
           onClick={() => setOpen(!open)}
         >
           ☰

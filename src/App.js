@@ -7,7 +7,7 @@ import Contact from "./components/Contact";
 
 function App() {
   return (
-    <div className="scroll-smooth">
+    <div className="scroll-smooth bg-white">
       <Navbar />
       <Hero />
       <About />
