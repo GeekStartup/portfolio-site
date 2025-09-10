@@ -20,12 +20,16 @@ export default function Hero() {
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(EMAIL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
+  const copyEmail = () => {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(EMAIL)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1600);
+        })
+        .catch(() => alert(`Email: ${EMAIL}`));
+    } else {
+      // Fallback for non-secure contexts
       alert(`Email: ${EMAIL}`);
     }
   };
@@ -42,30 +46,31 @@ export default function Hero() {
             Full Stack Developer · React · Node.js · Modern Web Enthusiast
           </p>
 
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
+          {/* Actions: mobile stacks, desktop row */}
+          <div className="flex flex-col sm:flex-row items-center sm:items-stretch justify-center md:justify-start gap-3 pt-2">
             <button
               onClick={openGmailCompose}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 text-white shadow hover:bg-blue-700 transition"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 text-white shadow hover:bg-blue-700 transition w-full sm:w-auto"
             >
               <FaEnvelope />
               Email
             </button>
 
+            {/* Icon-only copy button */}
             <button
               onClick={copyEmail}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gray-900 text-white shadow hover:bg-black transition"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-white shadow hover:bg-black transition"
               aria-label="Copy email address"
               title="Copy email"
             >
               {copied ? <FaCheck /> : <FaCopy />}
-              {copied ? "Copied" : "Copy"}
             </button>
 
             <a
               href={LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gray-200 text-gray-900 shadow hover:bg-gray-300 transition"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-gray-200 text-gray-900 shadow hover:bg-gray-300 transition w-full sm:w-auto"
             >
               <FaLinkedin />
               LinkedIn
@@ -75,7 +80,7 @@ export default function Hero() {
               href={GITHUB}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gray-200 text-gray-900 shadow hover:bg-gray-300 transition"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-gray-200 text-gray-900 shadow hover:bg-gray-300 transition w-full sm:w-auto"
             >
               <FaGithub />
               GitHub

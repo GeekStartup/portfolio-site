@@ -19,40 +19,46 @@ export default function Contact() {
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(EMAIL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
+  const copyEmail = () => {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(EMAIL)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1600);
+        })
+        .catch(() => alert(`Email: ${EMAIL}`));
+    } else {
       alert(`Email: ${EMAIL}`);
     }
   };
 
   return (
     <SectionWrapper id="contact" title="Contact">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Buttons row: stacks on mobile, row on larger screens */}
+      <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3">
         <button
           onClick={openGmailCompose}
-          className="flex items-center justify-center gap-3 rounded-lg bg-blue-600 text-white py-3 shadow hover:bg-blue-700 transition"
+          className="inline-flex items-center justify-center gap-3 rounded-full bg-blue-600 text-white px-5 py-2.5 shadow hover:bg-blue-700 transition w-full sm:w-auto"
         >
           <FaEnvelope />
           Email via Gmail
         </button>
 
+        {/* Icon-only copy button */}
         <button
           onClick={copyEmail}
-          className="flex items-center justify-center gap-3 rounded-lg bg-gray-900 text-white py-3 shadow hover:bg-black transition"
+          className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-white shadow hover:bg-black transition"
+          aria-label="Copy email address"
+          title="Copy email"
         >
           {copied ? <FaCheck /> : <FaCopy />}
-          {copied ? "Copied" : "Copy Email"}
         </button>
 
         <a
           href={LINKEDIN}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center justify-center gap-3 rounded-lg bg-gray-200 text-gray-900 py-3 shadow hover:bg-gray-300 transition"
+          className="inline-flex items-center justify-center gap-3 rounded-full bg-gray-200 text-gray-900 px-5 py-2.5 shadow hover:bg-gray-300 transition w-full sm:w-auto"
         >
           <FaLinkedin />
           LinkedIn
@@ -62,16 +68,17 @@ export default function Contact() {
           href={GITHUB}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center justify-center gap-3 rounded-lg bg-gray-200 text-gray-900 py-3 shadow hover:bg-gray-300 transition"
+          className="inline-flex items-center justify-center gap-3 rounded-full bg-gray-200 text-gray-900 px-5 py-2.5 shadow hover:bg-gray-300 transition w-full sm:w-auto"
         >
           <FaGithub />
           GitHub
         </a>
       </div>
 
+      {/* Phone row — won't wrap now */}
       <div className="mt-6 flex items-center gap-3 text-gray-800">
         <FaPhone />
-        <span className="font-medium">{PHONE}</span>
+        <span className="font-medium whitespace-nowrap">{PHONE}</span>
       </div>
     </SectionWrapper>
   );
