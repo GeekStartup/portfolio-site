@@ -5,9 +5,9 @@ const links = [
   { name: "About", id: "about" },
   { name: "Experience", id: "experience" },
   { name: "Skills", id: "skills" },
-  { name: "Certifications", id: "certifications" },
   { name: "Education", id: "education" },
-  { name: "Contact", id: "contact" },
+  { name: "Certifications", id: "certifications" },
+  // Contact removed (redundant now)
 ];
 
 export default function Navbar() {
@@ -15,7 +15,6 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
 
-  // Active section via IntersectionObserver
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
@@ -28,7 +27,6 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  // Load stored theme on mount
   useEffect(() => {
     const stored = localStorage.getItem("theme");
     const initial = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -36,7 +34,6 @@ export default function Navbar() {
     document.documentElement.classList.toggle("dark", initial);
   }, []);
 
-  // Toggle and persist theme
   const toggleTheme = () => {
     const next = !dark;
     setDark(next);

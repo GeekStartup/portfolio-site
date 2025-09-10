@@ -6,7 +6,6 @@ import Experience from "./components/Experience";
 import Skills from "./components/Skills";
 import Education from "./components/Education";
 import Certifications from "./components/Certifications";
-import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 
 function App() {
@@ -18,9 +17,9 @@ function App() {
         <About />
         <Experience />
         <Skills />
-        <Certifications />
         <Education />
-        <Contact />
+        <Certifications />
+        {/* Contact removed */}
       </main>
       <BackToTop />
     </div>
