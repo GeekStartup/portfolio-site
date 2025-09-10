@@ -1,26 +1,22 @@
+// src/components/Hero.js
 import React from "react";
-import localProfile from "../assets/profile.jpg"; // may be missing in some setups
 
-const fallbackProfile =
-  "https://images.unsplash.com/photo-1674027444485-cec3da58eef4?q=80&w=400&auto=format&fit=crop";
+const profilePic = "https://via.placeholder.com/150"; // fallback profile picture
 
-const Hero = () => {
-  const profilePic = localProfile || fallbackProfile; // fallback if import fails
-
+export default function Hero() {
   return (
-    <section className="text-center my-10">
+    <section id="hero" className="flex flex-col items-center justify-center text-center py-20 bg-gray-50">
       <img
         src={profilePic}
         alt="Profile"
-        className="w-40 h-40 rounded-full mx-auto mb-6"
-        onError={(e) => {
-          e.currentTarget.src = fallbackProfile; // ensures broken local images are replaced
-        }}
+        className="w-40 h-40 rounded-full shadow-lg mb-6 object-cover"
       />
-      <h1 className="text-3xl font-bold">Ashish Nayak</h1>
-      <p className="text-gray-500 mt-2">Full Stack Developer</p>
+      <h1 className="text-4xl font-bold mb-2">Ashish K Nayak</h1>
+      <p className="text-xl text-gray-600 mb-4">Fullstack Developer | Open to Opportunities</p>
+      <p className="max-w-xl text-gray-700">
+        Passionate about building modern web applications with React, Node.js, and TailwindCSS.
+        Experienced in designing responsive and modular UI/UX.
+      </p>
     </section>
   );
-};
-
-export default Hero;
+}

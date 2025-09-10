@@ -1,22 +1,23 @@
+// src/components/Certifications.js
 import React from "react";
 
 const certifications = [
-  "AWS Certified Developer",
-  "React JS Professional",
-  "Fullstack Web Development"
+  { name: "AWS Certified Developer", year: "2022" },
+  { name: "React Professional Certificate", year: "2021" },
 ];
 
-function Certifications() {
+export default function Certifications() {
   return (
-    <section id="certifications" className="p-6 md:p-16">
-      <h2 className="text-3xl font-bold mb-6">Certifications</h2>
-      <ul className="list-disc list-inside space-y-2">
-        {certifications.map((cert, i) => (
-          <li key={i} className="bg-white p-4 rounded shadow hover:shadow-md transition">{cert}</li>
+    <section id="certifications" className="py-12 bg-white">
+      <h2 className="text-3xl font-bold text-center mb-8">Certifications</h2>
+      <div className="max-w-3xl mx-auto space-y-4">
+        {certifications.map((cert, idx) => (
+          <div key={idx} className="p-6 bg-gray-50 rounded-lg shadow-md flex justify-between">
+            <span>{cert.name}</span>
+            <span className="text-gray-500">{cert.year}</span>
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
-
-export default Certifications;
