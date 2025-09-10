@@ -1,19 +1,25 @@
 import React from "react";
 
 const skills = [
-  "React", "Node.js", "Express", "MongoDB", "PostgreSQL",
-  "TailwindCSS", "HTML", "CSS", "JavaScript", "TypeScript"
+  "React",
+  "Node.js",
+  "TailwindCSS",
+  "JavaScript",
+  "Python",
+  "Git",
+  "Docker",
+  "GraphQL"
 ];
 
-export default function Skills() {
+const Skills = () => {
   return (
-    <section id="skills" className="my-12">
-      <h2 className="text-2xl font-bold mb-6">Skills</h2>
-      <div className="flex flex-wrap gap-3">
+    <section id="skills" className="py-12 px-4 md:px-0 max-w-5xl mx-auto">
+      <h2 className="text-3xl font-bold mb-6 text-center">Skills</h2>
+      <div className="flex flex-wrap justify-center gap-4">
         {skills.map((skill) => (
           <span
             key={skill}
-            className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full shadow-sm"
+            className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-md transform transition hover:scale-105"
           >
             {skill}
           </span>
@@ -21,4 +27,6 @@ export default function Skills() {
       </div>
     </section>
   );
-}
+};
+
+export default Skills;

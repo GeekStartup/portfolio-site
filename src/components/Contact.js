@@ -1,28 +1,23 @@
 import React from "react";
+import { FaEnvelope, FaLinkedin, FaPhone } from "react-icons/fa";
 
-export default function Contact() {
+const Contact = () => {
   return (
-    <section id="contact" className="my-12">
-      <h2 className="text-2xl font-bold mb-6">Contact Me</h2>
-      <div className="flex flex-col md:flex-row gap-4">
-        <a
-          href="mailto:ashish@example.com"
-          className="px-5 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition"
-        >
-          Email
+    <section id="contact" className="py-16 px-4 md:px-0 text-center">
+      <h2 className="text-3xl font-bold mb-6">Contact Me</h2>
+      <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+        <a href="mailto:your.email@example.com" className="flex items-center gap-2 px-5 py-2 bg-primary text-white rounded-full shadow hover:bg-blue-700 transition">
+          <FaEnvelope /> Email
         </a>
-        <a
-          href="https://linkedin.com/in/ashishnayak"
-          target="_blank"
-          rel="noreferrer"
-          className="px-5 py-2 bg-gray-200 text-gray-900 rounded-full shadow hover:bg-gray-300 transition"
-        >
-          LinkedIn
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-2 bg-primary text-white rounded-full shadow hover:bg-blue-700 transition">
+          <FaLinkedin /> LinkedIn
         </a>
-        <div className="px-5 py-2 bg-gray-100 rounded-full shadow flex items-center">
-          📞 +91-XXXXXXXXXX
-        </div>
+        <span className="flex items-center gap-2 px-5 py-2 bg-gray-200 rounded-full shadow">
+          <FaPhone /> +91-XXXXXXXXXX
+        </span>
       </div>
     </section>
   );
-}
+};
+
+export default Contact;

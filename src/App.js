@@ -9,17 +9,17 @@ import Contact from "./components/Contact";
 
 function App() {
   return (
-    <div className="App font-sans bg-gray-50 text-gray-900">
+    <>
       <Navbar />
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="md:pl-40">
         <Hero />
         <Skills />
         <Experience />
         <Education />
         <Certifications />
         <Contact />
-      </main>
-    </div>
+      </div>
+    </>
   );
 }
 
