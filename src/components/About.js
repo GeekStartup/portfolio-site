@@ -3,22 +3,27 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <section id="about" className="pt-20 py-16 bg-gray-50 text-center md:text-left px-6 md:px-20">
+    <section className="max-w-5xl mx-auto px-6 text-center">
       <motion.h2
-        className="text-3xl font-bold mb-6"
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-3xl font-bold text-secondary mb-6"
       >
         About Me
       </motion.h2>
       <motion.p
-        className="text-gray-700 max-w-3xl mx-auto md:mx-0 text-lg leading-relaxed"
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="text-lg text-gray-600 leading-relaxed"
       >
-        Hi! I’m Ashish Nayak, a Senior Software Engineer with extensive experience in building scalable web applications. I specialize in React, Node.js, and modern frontend technologies. I am passionate about delivering efficient, clean, and user-friendly solutions that make a real impact.
+        Experienced software engineer with expertise in designing and
+        implementing scalable solutions across banking, fintech, and digital
+        transformation projects. Skilled in full-stack development, API
+        integrations, and modern frameworks with a strong focus on clean
+        architecture and performance optimization. Passionate about solving
+        complex problems and delivering impactful technology solutions.
       </motion.p>
     </section>
   );
