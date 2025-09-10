@@ -1,22 +1,22 @@
 import React from "react";
 
 const certifications = [
-  { title: "React Development", issuer: "Coursera", year: 2021 },
-  { title: "Full Stack Web Development", issuer: "Udemy", year: 2020 }
+  { title: "Full Stack Web Development", issuer: "Coursera" },
+  { title: "React Advanced", issuer: "Udemy" },
 ];
 
-const Certifications = () => {
+export default function Certifications() {
   return (
-    <section id="certifications" className="py-16 px-4 md:px-16 max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold mb-6">Certifications</h2>
-      {certifications.map((cert, idx) => (
-        <div key={idx} className="mb-4">
-          <h3 className="text-lg font-semibold">{cert.title}</h3>
-          <span className="text-gray-500">{cert.issuer} | {cert.year}</span>
-        </div>
-      ))}
+    <section id="certifications" className="my-12">
+      <h2 className="text-2xl font-bold mb-6">Certifications</h2>
+      <div className="space-y-4">
+        {certifications.map((cert) => (
+          <div key={cert.title} className="p-4 bg-white shadow rounded-lg">
+            <h3 className="font-semibold">{cert.title}</h3>
+            <p className="text-gray-600">{cert.issuer}</p>
+          </div>
+        ))}
+      </div>
     </section>
   );
-};
-
-export default Certifications;
+}
