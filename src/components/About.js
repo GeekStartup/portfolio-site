@@ -8,7 +8,8 @@ export default function About() {
         I am Ashish K Nayak, a <span className="font-semibold">Full Stack Developer</span> passionate
         about crafting modern web applications. With hands-on experience in{" "}
         <span className="font-medium">React, Node.js, and scalable UI/UX</span>, I enjoy creating
-        responsive, performance-focused solutions that deliver real impact.
+        responsive, performance-focused solutions that deliver real impact. I care about clean code,
+        accessible design, and pragmatic engineering that moves products forward.
       </p>
     </SectionWrapper>
   );
