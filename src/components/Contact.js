@@ -1,43 +1,31 @@
-// src/components/Contact.js
+import React from "react";
 import { FaEnvelope, FaLinkedin, FaPhone } from "react-icons/fa";
-import { motion } from "framer-motion";
 
-export default function Contact() {
+const Contact = () => {
   return (
-    <section
-      id="contact"
-      className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-6 py-12"
-    >
-      <h2 className="text-4xl font-bold mb-8 text-gray-900">Contact Me</h2>
-
-      <div className="flex flex-col md:flex-row gap-8 items-center">
-        {/* Email */}
-        <motion.a
-          href="mailto:ashish@example.com"
-          className="flex items-center gap-2 text-white bg-blue-600 px-5 py-3 rounded-full shadow hover:bg-blue-700 transition transform hover:scale-105"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+    <div className="max-w-4xl mx-auto py-16 px-4 flex flex-col items-center text-center">
+      <h2 className="text-3xl font-bold mb-8">Contact Me</h2>
+      <div className="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0 items-center">
+        <a
+          href="mailto:your.email@example.com"
+          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
         >
-          <FaEnvelope /> Email
-        </motion.a>
-
-        {/* LinkedIn */}
-        <motion.a
-          href="https://www.linkedin.com/in/ashish-nayak/"
+          <FaEnvelope className="mr-2" /> Email
+        </a>
+        <a
+          href="https://www.linkedin.com/in/your-profile"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-white bg-blue-400 px-5 py-3 rounded-full shadow hover:bg-blue-500 transition transform hover:scale-105"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
         >
-          <FaLinkedin /> LinkedIn
-        </motion.a>
-
-        {/* Phone */}
-        <div className="flex items-center gap-2 text-gray-800 bg-gray-200 px-5 py-3 rounded-full shadow">
-          <FaPhone /> +91 98765 43210
+          <FaLinkedin className="mr-2" /> LinkedIn
+        </a>
+        <div className="flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-full">
+          <FaPhone className="mr-2" /> +91 98765 43210
         </div>
       </div>
-    </section>
+    </div>
   );
-}
+};
+
+export default Contact;
