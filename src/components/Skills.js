@@ -10,7 +10,7 @@ export default function Skills() {
         {skills.map((skill, idx) => (
           <span
             key={idx}
-            className="px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-200 transform hover:scale-110 transition cursor-pointer"
+            className="px-4 py-2 rounded-full bg-secondary hover:bg-blue-200 transform hover:scale-110 transition cursor-pointer"
           >
             {skill}
           </span>

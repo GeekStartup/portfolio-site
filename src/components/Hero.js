@@ -9,14 +9,14 @@ export default function Hero() {
       className="pt-24 min-h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-20 gap-12 bg-gradient-to-r from-blue-50 to-white"
     >
       <div className="flex-1 text-center md:text-left space-y-6">
-        <h1 className="text-5xl md:text-6xl font-bold">Ashish K Nayak</h1>
-        <p className="text-lg md:text-xl text-gray-600">
+        <h1 className="text-5xl md:text-6xl font-bold text-textDark">Ashish K Nayak</h1>
+        <p className="text-lg md:text-xl text-textGray">
           Senior Software Engineer | Building Scalable Solutions
         </p>
         <div className="flex gap-3 justify-center md:justify-start flex-wrap">
           <a
             href="mailto:your.email@example.com"
-            className="px-5 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition transform hover:scale-105"
+            className="px-5 py-2 bg-primary text-white rounded-full shadow hover:bg-blue-700 transition transform hover:scale-105"
           >
             Email
           </a>

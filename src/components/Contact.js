@@ -7,7 +7,7 @@ export default function Contact() {
       <p className="text-gray-700 mb-4">You can reach me via email</p>
       <a
         href="mailto:your.email@example.com"
-        className="px-5 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition transform hover:scale-105"
+        className="px-5 py-2 bg-primary text-white rounded-full shadow hover:bg-blue-700 transition transform hover:scale-105"
       >
         Email Me
       </a>

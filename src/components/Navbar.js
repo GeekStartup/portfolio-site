@@ -1,65 +1,33 @@
-import React, { useState, useEffect } from "react";
-
-const links = ["hero", "experience", "skills", "contact"];
+import React, { useState } from "react";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMenuOpen(false);
-  };
+  const [open, setOpen] = useState(false);
 
   return (
-    <nav
-      className={`fixed w-full top-0 z-50 ${
-        scrolled ? "bg-white shadow-md" : "bg-white/80 backdrop-blur-md"
-      } transition`}
-    >
-      <div className="max-w-6xl mx-auto flex justify-between items-center py-4 px-6">
-        <div
-          className="text-xl font-bold cursor-pointer"
-          onClick={() => scrollTo("hero")}
-        >
-          Ashish K Nayak
-        </div>
+    <nav className="fixed w-full bg-white shadow z-50">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="text-2xl font-bold text-primary">Ashish Nayak</div>
         <div className="hidden md:flex gap-6">
-          {links.map((l) => (
-            <button
-              key={l}
-              className="text-gray-700 hover:text-blue-600 font-medium"
-              onClick={() => scrollTo(l)}
-            >
-              {l.charAt(0).toUpperCase() + l.slice(1)}
-            </button>
-          ))}
+          <a href="#hero" className="hover:text-primary">Home</a>
+          <a href="#about" className="hover:text-primary">About</a>
+          <a href="#experience" className="hover:text-primary">Experience</a>
+          <a href="#skills" className="hover:text-primary">Skills</a>
+          <a href="#contact" className="hover:text-primary">Contact</a>
         </div>
-        <div className="md:hidden">
-          <button onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <span className="text-2xl">✖</span> : <span className="text-2xl">☰</span>}
-          </button>
-        </div>
+        <button
+          className="md:hidden"
+          onClick={() => setOpen(!open)}
+        >
+          ☰
+        </button>
       </div>
-      {menuOpen && (
-        <div className="md:hidden bg-white shadow-md">
-          <div className="flex flex-col px-6 py-4 gap-4">
-            {links.map((l) => (
-              <button
-                key={l}
-                className="text-gray-700 hover:text-blue-600 text-left font-medium"
-                onClick={() => scrollTo(l)}
-              >
-                {l.charAt(0).toUpperCase() + l.slice(1)}
-              </button>
-            ))}
-          </div>
+      {open && (
+        <div className="md:hidden px-6 pb-4 flex flex-col gap-4 bg-white">
+          <a href="#hero" className="hover:text-primary">Home</a>
+          <a href="#about" className="hover:text-primary">About</a>
+          <a href="#experience" className="hover:text-primary">Experience</a>
+          <a href="#skills" className="hover:text-primary">Skills</a>
+          <a href="#contact" className="hover:text-primary">Contact</a>
         </div>
       )}
     </nav>
