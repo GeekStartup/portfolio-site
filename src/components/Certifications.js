@@ -3,8 +3,10 @@ import SectionWrapper from "./SectionWrapper";
 import { motion } from "framer-motion";
 
 const certifications = [
-  { title: "React Developer Certificate", issuer: "Coursera", year: "2022" },
-  { title: "Full Stack Web Development", issuer: "Udemy", year: "2021" },
+  { title: "Spring Professional", issuer: "Pivotal" },
+  { title: "Master Microservices with Spring Boot & Spring Cloud", issuer: "Udemy" },
+  { title: "Scrum Master", issuer: "International Scrum Institute" },
+  { title: "Scrum Team Member", issuer: "International Scrum Institute" },
 ];
 
 export default function Certifications() {
@@ -14,14 +16,14 @@ export default function Certifications() {
         {certifications.map((c, i) => (
           <motion.article
             key={c.title}
-            className="p-6 rounded-lg shadow-md bg-white hover:shadow-lg transition"
-            initial={{ opacity: 0, y: 14 }}
+            className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800 hover:shadow-lg transition"
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.4, delay: i * 0.06 }}
+            transition={{ duration: 0.35, delay: i * 0.05 }}
           >
             <h3 className="text-lg font-semibold">{c.title}</h3>
-            <p className="text-gray-600">{c.issuer} • {c.year}</p>
+            <p className="text-gray-600 dark:text-gray-300">{c.issuer}</p>
           </motion.article>
         ))}
       </div>
