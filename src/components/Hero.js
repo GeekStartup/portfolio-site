@@ -1,67 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-const links = ["hero", "experience", "skills", "contact"];
+const profilePic = process.env.PUBLIC_URL + "/profile.jpg";
 
-export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMenuOpen(false);
-  };
-
+export default function Hero() {
   return (
-    <nav
-      className={`fixed w-full top-0 z-50 ${
-        scrolled ? "bg-white shadow-md" : "bg-white/80 backdrop-blur-md"
-      } transition`}
+    <section
+      id="hero"
+      className="pt-24 min-h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-20 gap-12 bg-gradient-to-r from-blue-50 to-white"
     >
-      <div className="max-w-6xl mx-auto flex justify-between items-center py-4 px-6">
-        <div
-          className="text-xl font-bold cursor-pointer"
-          onClick={() => scrollTo("hero")}
-        >
-          Ashish K Nayak
-        </div>
-        <div className="hidden md:flex gap-6">
-          {links.map((l) => (
-            <button
-              key={l}
-              className="text-gray-700 hover:text-blue-600 font-medium"
-              onClick={() => scrollTo(l)}
-            >
-              {l.charAt(0).toUpperCase() + l.slice(1)}
-            </button>
-          ))}
-        </div>
-        <div className="md:hidden">
-          <button onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <span className="text-2xl">✖</span> : <span className="text-2xl">☰</span>}
-          </button>
+      <div className="flex-1 text-center md:text-left space-y-6">
+        <h1 className="text-5xl md:text-6xl font-bold">Ashish K Nayak</h1>
+        <p className="text-lg md:text-xl text-gray-600">
+          Senior Software Engineer | Building Scalable Solutions
+        </p>
+        <div className="flex gap-3 justify-center md:justify-start flex-wrap">
+          <a
+            href="mailto:your.email@example.com"
+            className="px-5 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition transform hover:scale-105"
+          >
+            Email
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noreferrer"
+            className="px-5 py-2 border border-gray-300 rounded-full shadow hover:bg-gray-100 transition transform hover:scale-105"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noreferrer"
+            className="px-5 py-2 border border-gray-300 rounded-full shadow hover:bg-gray-100 transition transform hover:scale-105"
+          >
+            GitHub
+          </a>
         </div>
       </div>
-      {menuOpen && (
-        <div className="md:hidden bg-white shadow-md">
-          <div className="flex flex-col px-6 py-4 gap-4">
-            {links.map((l) => (
-              <button
-                key={l}
-                className="text-gray-700 hover:text-blue-600 text-left font-medium"
-                onClick={() => scrollTo(l)}
-              >
-                {l.charAt(0).toUpperCase() + l.slice(1)}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </nav>
+      <div className="flex-1 flex justify-center md:justify-end">
+        <img
+          src={profilePic}
+          onError={(e) => (e.currentTarget.src = "https://via.placeholder.com/400")}
+          alt="Profile"
+          className="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-gray-200 shadow-xl transform hover:scale-105 transition"
+        />
+      </div>
+    </section>
   );
 }
