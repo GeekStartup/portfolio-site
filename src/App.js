@@ -5,6 +5,7 @@ import About from "./components/About";
 import Experience from "./components/Experience";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
+import Education from "./components/Education";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <section id="about"><About /></section>
         <section id="experience"><Experience /></section>
         <section id="skills"><Skills /></section>
+        <Education />
         <section id="contact"><Contact /></section>
       </div>
     </>
