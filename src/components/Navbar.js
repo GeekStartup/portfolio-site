@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 const links = [
   { name: "Home", id: "hero" },
   { name: "About", id: "about" },
-  { name: "Experience", id: "experience" },
+  { name: "Work History", id: "work" },
   { name: "Skills", id: "skills" },
   { name: "Education", id: "education" },
   { name: "Certifications", id: "certifications" },
-  // Contact removed (redundant now)
+  { name: "Languages", id: "languages" },
+  { name: "Interests", id: "interests" },
 ];
 
 export default function Navbar() {
@@ -54,7 +55,7 @@ export default function Navbar() {
             <li key={l.id}>
               <a
                 href={`#${l.id}`}
-                className={`transition ${
+                className={`transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded ${
                   active === l.id
                     ? "text-brand font-semibold"
                     : "text-gray-800 dark:text-gray-200 hover:text-brand"
