@@ -1,4 +1,5 @@
 import React from "react";
+import SectionWrapper from "./SectionWrapper";
 
 const education = [
   {
@@ -12,12 +13,7 @@ const education = [
 
 export default function Education() {
   return (
-    <section
-      id="education"
-      className="max-w-6xl mx-auto px-6 lg:px-8 py-14 border-t"
-    >
-      <h2 className="text-3xl font-bold mb-8">Education</h2>
-
+    <SectionWrapper id="education" title="Education">
       <div className="grid gap-6 sm:grid-cols-2">
         {education.map((ed) => (
           <article
@@ -30,6 +26,6 @@ export default function Education() {
           </article>
         ))}
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

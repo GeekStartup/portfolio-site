@@ -1,4 +1,5 @@
 import React from "react";
+import SectionWrapper from "./SectionWrapper";
 
 const skills = [
   "JavaScript", "TypeScript", "React", "Redux", "Node.js",
@@ -8,15 +9,8 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section
-      id="skills"
-      className="max-w-6xl mx-auto px-6 lg:px-8 py-14 border-t"
-    >
-      <h2 className="text-3xl font-bold mb-8">Skills</h2>
-
-      {/* Card container */}
+    <SectionWrapper id="skills" title="Skills">
       <div className="p-6 rounded-lg shadow-md bg-white">
-        {/* Tags grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {skills.map((s) => (
             <span
@@ -29,6 +23,6 @@ export default function Skills() {
           ))}
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

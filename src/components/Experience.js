@@ -1,4 +1,5 @@
 import React from "react";
+import SectionWrapper from "./SectionWrapper";
 
 const experiences = [
   {
@@ -17,27 +18,21 @@ const experiences = [
   },
 ];
 
-const Experience = () => {
+export default function Experience() {
   return (
-    <section
-      id="experience"
-      className="max-w-6xl mx-auto px-6 lg:px-8 py-14 border-t"
-    >
-      <h2 className="text-3xl font-bold mb-8">Experience & Projects</h2>
+    <SectionWrapper id="experience" title="Experience & Projects">
       <div className="grid gap-6 md:grid-cols-2">
         {experiences.map((exp) => (
-          <div
+          <article
             key={exp.title}
             className="p-6 rounded-lg shadow-md bg-white hover:shadow-lg transition"
           >
             <h3 className="text-xl font-semibold">{exp.title}</h3>
             <p className="text-gray-600">{exp.company} | {exp.date}</p>
             <p className="mt-3 text-gray-700">{exp.description}</p>
-          </div>
+          </article>
         ))}
       </div>
-    </section>
+    </SectionWrapper>
   );
-};
-
-export default Experience;
+}

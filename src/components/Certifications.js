@@ -1,4 +1,5 @@
 import React from "react";
+import SectionWrapper from "./SectionWrapper";
 
 const certifications = [
   { title: "React Developer Certificate", issuer: "Coursera", year: "2022" },
@@ -7,12 +8,7 @@ const certifications = [
 
 export default function Certifications() {
   return (
-    <section
-      id="certifications"
-      className="max-w-6xl mx-auto px-6 lg:px-8 py-14 border-t"
-    >
-      <h2 className="text-3xl font-bold mb-8">Certifications</h2>
-
+    <SectionWrapper id="certifications" title="Certifications">
       <div className="grid gap-6 sm:grid-cols-2">
         {certifications.map((c) => (
           <article
@@ -24,6 +20,6 @@ export default function Certifications() {
           </article>
         ))}
       </div>
-    </section>
+    </SectionWrapper>
   );
 }
