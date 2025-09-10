@@ -34,7 +34,7 @@ export default function Navbar() {
           {links.map((l) => (
             <button
               key={l}
-              className="text-gray-700 hover:text-primary font-medium"
+              className="text-gray-700 hover:text-blue-600 font-medium"
               onClick={() => scrollTo(l)}
             >
               {l.charAt(0).toUpperCase() + l.slice(1)}
@@ -53,7 +53,7 @@ export default function Navbar() {
             {links.map((l) => (
               <button
                 key={l}
-                className="text-gray-700 hover:text-primary text-left font-medium"
+                className="text-gray-700 hover:text-blue-600 text-left font-medium"
                 onClick={() => scrollTo(l)}
               >
                 {l.charAt(0).toUpperCase() + l.slice(1)}
