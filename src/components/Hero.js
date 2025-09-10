@@ -23,7 +23,8 @@ export default function Hero() {
 
   const copyEmail = () => {
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(EMAIL)
+      navigator.clipboard
+        .writeText(EMAIL)
         .then(() => {
           setCopied(true);
           setTimeout(() => setCopied(false), 1600);
@@ -35,7 +36,7 @@ export default function Hero() {
   };
 
   return (
-    <SectionWrapper id="hero">
+    <SectionWrapper id="hero" replay>
       <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10">
         {/* Left: text / CTAs */}
         <div className="md:w-1/2 space-y-3 text-center md:text-left">
@@ -43,54 +44,60 @@ export default function Hero() {
             Ashish K Nayak
           </h1>
           <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
-            Full Stack Developer · React · Node.js · Modern Web Enthusiast
+            Senior Software Engineer · Java · Spring Boot · Microservices · CI/CD
           </p>
 
-          {/* Actions: stacks on mobile, row on sm+ */}
-          <div className="flex flex-col sm:flex-row items-center sm:items-stretch justify-center md:justify-start gap-3 pt-1">
+          {/* One-line contacts (wraps gracefully on very small screens) */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-sm md:text-base">
+            {/* Phone (always visible) */}
+            <span className="inline-flex items-center gap-2 text-gray-800 dark:text-gray-200 whitespace-nowrap">
+              <FaPhone />
+              <span className="font-medium">{PHONE}</span>
+            </span>
+
+            {/* Separator */}
+            <span className="hidden sm:inline text-gray-400">•</span>
+
+            {/* Email (Gmail compose) */}
             <button
               onClick={openGmailCompose}
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-brand text-white shadow hover:opacity-90 transition w-full sm:w-auto"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand text-white shadow hover:opacity-90 transition"
+              title="Email via Gmail"
             >
               <FaEnvelope />
-              Email
+              <span className="hidden xs:inline">Email</span>
             </button>
 
-            {/* Icon-only copy button */}
+            {/* Copy email (icon only) */}
             <button
               onClick={copyEmail}
-              className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-white shadow hover:bg-black transition"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gray-900 text-white shadow hover:bg-black transition"
               aria-label="Copy email address"
               title="Copy email"
             >
               {copied ? <FaCheck /> : <FaCopy />}
             </button>
 
+            {/* LinkedIn */}
             <a
               href={LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow hover:opacity-90 transition w-full sm:w-auto"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow hover:opacity-90 transition"
             >
-              <FaLinkedin />
-              LinkedIn
+              {/* keep labels short to fit one line */}
+              in
             </a>
 
+            {/* GitHub */}
             <a
               href={GITHUB}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow hover:opacity-90 transition w-full sm:w-auto"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow hover:opacity-90 transition"
             >
-              <FaGithub />
-              GitHub
+              gh
             </a>
-          </div>
-
-          {/* Phone: now in Hero, won’t wrap */}
-          <div className="flex items-center justify-center md:justify-start gap-2 text-gray-800 dark:text-gray-200 pt-1">
-            <FaPhone />
-            <span className="font-medium whitespace-nowrap">{PHONE}</span>
           </div>
         </div>
 
