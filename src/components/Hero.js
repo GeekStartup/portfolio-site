@@ -102,7 +102,7 @@ export default function Hero() {
         <div className="md:w-1/2 flex md:justify-end justify-center">
           <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-60 md:h-60 rounded-full overflow-hidden ring-4 ring-white dark:ring-gray-900 shadow-xl">
             <img
-              src="/profile.jpg" // put your image at public/profile.jpg
+              src="/profile.png" // put your image at public/profile.jpg
               alt="Ashish K Nayak"
               className="w-full h-full object-cover"
               loading="lazy"
