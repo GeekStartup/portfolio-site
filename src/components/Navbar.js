@@ -32,24 +32,36 @@ export default function Navbar() {
     localStorage.setItem("theme", next ? "dark" : "light");
   };
 
-  // correct active link highlighting
+  // range-based active link highlighting
   useEffect(() => {
     const handleScroll = () => {
       const navH = navRef.current ? navRef.current.offsetHeight : 64;
-      const scrollPos = window.scrollY + navH + 10; // adjust buffer
+      const scrollPos = window.scrollY + navH + 10;
+
       let current = links[0].id;
 
       for (const l of links) {
         const el = document.getElementById(l.id);
         if (!el) continue;
-        if (scrollPos >= el.offsetTop) {
-          current = l.id; // last section passed becomes current
+        const top = el.offsetTop - navH - 20; // small buffer
+        const bottom = top + el.offsetHeight;
+
+        if (scrollPos >= top && scrollPos < bottom) {
+          current = l.id;
+          break;
         }
       }
-      setActive(current);
+
+      // if we scrolled past all, highlight last
+      const lastEl = document.getElementById(links[links.length - 1].id);
+      if (lastEl && scrollPos >= lastEl.offsetTop) {
+        current = links[links.length - 1].id;
+      }
+
+      setActive((prev) => (prev === current ? prev : current));
     };
 
-    handleScroll(); // run once
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
     return () => {
@@ -58,12 +70,15 @@ export default function Navbar() {
     };
   }, []);
 
-  const onNavClick = () => setOpen(false);
+  const onNavClick = (id) => {
+    setActive(id); // instant feedback
+    setOpen(false);
+  };
 
   return (
     <nav ref={navRef} className="fixed top-0 w-full bg-white/90 dark:bg-gray-900/80 backdrop-blur shadow z-50">
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-        <a href="#hero" className="font-bold text-xl tracking-tight text-gray-900 dark:text-gray-100">
+        <a href="#hero" onClick={() => onNavClick("hero")} className="font-bold text-xl tracking-tight text-gray-900 dark:text-gray-100">
           <span className="text-brand">Ashish</span> Nayak
         </a>
 
@@ -73,7 +88,7 @@ export default function Navbar() {
             <li key={l.id}>
               <a
                 href={`#${l.id}`}
-                onClick={onNavClick}
+                onClick={() => onNavClick(l.id)}
                 className={`transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded ${
                   active === l.id
                     ? "text-brand font-semibold"
@@ -126,7 +141,7 @@ export default function Navbar() {
                       ? "text-brand font-semibold"
                       : "text-gray-800 dark:text-gray-200 hover:text-brand"
                   }`}
-                  onClick={onNavClick}
+                  onClick={() => onNavClick(l.id)}
                 >
                   {l.name}
                 </a>
