@@ -1,65 +1,38 @@
 import React from "react";
 
-const experiences = [
+const experience = [
   {
-    title: "Senior Software Engineer",
+    role: "Senior Software Engineer",
     company: "Maveric Systems",
-    duration: "2020 - Present",
-    description: "Working on web applications, modern UI, and APIs."
+    duration: "2022 - Present",
+    description: "Developed modern web applications using React, Node.js, and TailwindCSS. Led a small team of developers.",
   },
   {
-    title: "Software Engineer",
-    company: "XYZ Company",
-    duration: "2017 - 2020",
-    description: "Developed microservices and front-end components."
-  }
-];
-
-const projects = [
-  {
-    name: "Portfolio Website",
-    tech: "React, TailwindCSS",
-    link: "#"
+    role: "Software Engineer",
+    company: "TechCorp",
+    duration: "2020 - 2022",
+    description: "Built scalable backend APIs and integrated with frontend applications.",
   },
-  {
-    name: "E-commerce App",
-    tech: "React, Node.js, MongoDB",
-    link: "#"
-  }
 ];
 
 const Experience = () => {
   return (
-    <div className="max-w-5xl mx-auto py-16 px-4">
-      <h2 className="text-3xl font-bold mb-8">Experience & Projects</h2>
-
-      <div className="mb-12">
-        {experiences.map((exp, idx) => (
-          <div key={idx} className="mb-6">
-            <h3 className="text-xl font-semibold">{exp.title}</h3>
-            <p className="text-gray-600">{exp.company} | {exp.duration}</p>
-            <p className="mt-1">{exp.description}</p>
+    <section id="experience" className="py-16 px-4 bg-gray-50">
+      <h2 className="text-3xl font-bold text-center mb-8">Experience</h2>
+      <div className="max-w-6xl mx-auto grid sm:grid-cols-1 md:grid-cols-2 gap-8">
+        {experience.map((exp, idx) => (
+          <div
+            key={idx}
+            className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition transform hover:scale-105"
+          >
+            <h3 className="text-xl font-semibold">{exp.role}</h3>
+            <p className="text-gray-600">{exp.company}</p>
+            <p className="text-gray-500 text-sm mb-2">{exp.duration}</p>
+            <p className="text-gray-700">{exp.description}</p>
           </div>
         ))}
       </div>
-
-      <div>
-        <h3 className="text-2xl font-semibold mb-4">Projects</h3>
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((proj, idx) => (
-            <div key={idx} className="border p-4 rounded-lg hover:shadow-lg transition">
-              <h4 className="font-semibold">{proj.name}</h4>
-              <p className="text-gray-600">{proj.tech}</p>
-              {proj.link && (
-                <a href={proj.link} className="text-blue-500 hover:underline mt-2 inline-block">
-                  View
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    </section>
   );
 };
 

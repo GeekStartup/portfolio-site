@@ -1,58 +1,31 @@
+// src/App.js
 import React from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Experience from "./components/Experience";
-import Projects from "./components/Projects";
-import Certifications from "./components/Certifications";
-import Education from "./components/Education";
 import Skills from "./components/Skills";
+import Experience from "./components/Experience";
+import Education from "./components/Education";
+import Certifications from "./components/Certifications";
 import Contact from "./components/Contact";
 
 function App() {
   return (
-    <div className="App font-sans text-gray-800">
-      {/* Navigation */}
+    <div className="font-sans text-gray-800">
       <Navbar />
-
-      {/* Hero Section */}
-      <section id="hero">
-        <Hero />
-      </section>
-
-      <div className="flex flex-col md:flex-row max-w-6xl mx-auto px-4">
-        {/* Left Column: Skills */}
-        <aside className="md:w-1/4 mb-8 md:mb-0 md:mr-8 sticky top-20">
+      <div className="flex flex-col lg:flex-row max-w-7xl mx-auto pt-20">
+        <aside className="lg:w-1/4 p-4">
           <Skills />
         </aside>
-
-        {/* Right Column: Main Content */}
-        <main className="md:w-3/4 space-y-16">
-          {/* About / Hero already included */}
-
-          {/* Experience + Projects */}
-          <section id="experience">
-            <Experience />
-            <Projects />
-          </section>
-
-          {/* Certifications */}
-          <section id="certifications">
-            <Certifications />
-          </section>
-
-          {/* Education */}
-          <section id="education">
-            <Education />
-          </section>
-
-          {/* Contact */}
-          <section id="contact">
-            <Contact />
-          </section>
+        <main className="lg:w-3/4">
+          <Hero />
+          <Experience />
+          <Education />
+          <Certifications />
+          <Contact />
         </main>
       </div>
     </div>
   );
 }
 
-export default App;
+export default App; // ✅ Make sure to export the App component

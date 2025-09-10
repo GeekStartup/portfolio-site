@@ -7,25 +7,29 @@ const certifications = [
     year: "2023",
   },
   {
-    title: "Oracle Java SE 11 Developer",
-    issuer: "Oracle",
+    title: "React Developer Certificate",
+    issuer: "Coursera",
     year: "2022",
   },
 ];
 
 const Certifications = () => {
   return (
-    <div className="max-w-4xl mx-auto py-16 px-4">
-      <h2 className="text-3xl font-bold mb-8">Certifications</h2>
-      <div className="space-y-4">
+    <section id="certifications" className="py-16 px-4 bg-gray-50">
+      <h2 className="text-3xl font-bold text-center mb-8">Certifications</h2>
+      <div className="max-w-4xl mx-auto space-y-6">
         {certifications.map((cert, idx) => (
-          <div key={idx} className="border p-4 rounded-lg hover:shadow-lg transition">
+          <div
+            key={idx}
+            className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition transform hover:scale-105"
+          >
             <h3 className="text-xl font-semibold">{cert.title}</h3>
-            <p className="text-gray-600">{cert.issuer} | {cert.year}</p>
+            <p className="text-gray-600">{cert.issuer}</p>
+            <p className="text-gray-500 text-sm">{cert.year}</p>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
