@@ -39,7 +39,6 @@ export default function Certifications() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.01 }}
-            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.35, delay: i * 0.05 }}
           >
             <h3 className="text-lg font-semibold">{c.title}</h3>

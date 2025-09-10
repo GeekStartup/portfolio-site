@@ -20,7 +20,6 @@ export default function Languages() {
             className="p-4 rounded-lg shadow bg-white dark:bg-gray-800"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.3, delay: i * 0.05 }}
           >
             <div className="flex items-center justify-between">

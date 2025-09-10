@@ -36,7 +36,7 @@ export default function Hero() {
   };
 
   return (
-    <SectionWrapper id="hero" replay>
+    <SectionWrapper id="hero">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10">
         {/* Left: text / CTAs */}
         <div className="md:w-1/2 space-y-3 text-center md:text-left">
@@ -47,18 +47,15 @@ export default function Hero() {
             Senior Software Engineer · Java · Spring Boot · Microservices · CI/CD
           </p>
 
-          {/* One-line contacts (wraps gracefully on very small screens) */}
+          {/* One-line contacts (wraps on very small screens) */}
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-sm md:text-base">
-            {/* Phone (always visible) */}
             <span className="inline-flex items-center gap-2 text-gray-800 dark:text-gray-200 whitespace-nowrap">
               <FaPhone />
               <span className="font-medium">{PHONE}</span>
             </span>
 
-            {/* Separator */}
             <span className="hidden sm:inline text-gray-400">•</span>
 
-            {/* Email (Gmail compose) */}
             <button
               onClick={openGmailCompose}
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand text-white shadow hover:opacity-90 transition"
@@ -68,7 +65,6 @@ export default function Hero() {
               <span className="hidden xs:inline">Email</span>
             </button>
 
-            {/* Copy email (icon only) */}
             <button
               onClick={copyEmail}
               className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gray-900 text-white shadow hover:bg-black transition"
@@ -78,23 +74,22 @@ export default function Hero() {
               {copied ? <FaCheck /> : <FaCopy />}
             </button>
 
-            {/* LinkedIn */}
             <a
               href={LINKEDIN}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow hover:opacity-90 transition"
+              title="LinkedIn"
             >
-              {/* keep labels short to fit one line */}
               in
             </a>
 
-            {/* GitHub */}
             <a
               href={GITHUB}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow hover:opacity-90 transition"
+              title="GitHub"
             >
               gh
             </a>
@@ -105,7 +100,7 @@ export default function Hero() {
         <div className="md:w-1/2 flex md:justify-end justify-center">
           <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-60 md:h-60 rounded-full overflow-hidden ring-4 ring-white dark:ring-gray-900 shadow-xl">
             <img
-              src="/profile.jpg"          // place your image at public/profile.jpg
+              src="/profile.jpg"
               alt="Ashish K Nayak"
               className="w-full h-full object-cover"
               loading="lazy"

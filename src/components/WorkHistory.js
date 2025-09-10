@@ -3,7 +3,6 @@ import SectionWrapper from "./SectionWrapper";
 import { motion } from "framer-motion";
 
 const roles = [
-  // 2022–Present
   {
     title: "Senior Software Engineer (Backend)",
     company: "Maveric Systems → Zeta / HDFC Bank (PayZapp 2.0)",
@@ -19,8 +18,6 @@ const roles = [
     ],
     tech: ["Java", "Spring Boot", "Spring Cloud", "REST", "PostgreSQL", "Redis", "Docker", "CI/CD", "SonarQube"],
   },
-
-  // 2021–2022
   {
     title: "Senior Development Engineer",
     company: "Maveric Systems — The Family Office",
@@ -34,8 +31,6 @@ const roles = [
     ],
     tech: ["Java", "Spring Boot", "REST", "AWS Cognito", "Auth0", "JUnit", "Postman", "SonarQube"],
   },
-
-  // 2020
   {
     title: "DevOps Engineer",
     company: "Tata Consultancy Services — Citi ATM & Banking",
@@ -47,8 +42,6 @@ const roles = [
     ],
     tech: ["CI/CD", "Jenkins", "Artifact Repos", "Scripting", "Monitoring"],
   },
-
-  // 2016–2020
   {
     title: "Technical Lead / Senior Developer",
     company: "Tata Consultancy Services — CitiBanamex",
@@ -61,8 +54,6 @@ const roles = [
     ],
     tech: ["Java", "Spring", "Selenium", "Service Virtualization (CA LISA)", "CI/CD"],
   },
-
-  // 2014–2016 (adjust dates as per your resume details)
   {
     title: "Senior Web Developer",
     company: "Tata Consultancy Services",
@@ -74,8 +65,6 @@ const roles = [
     ],
     tech: ["Java", "Web", "SQL", "Testing"],
   },
-
-  // 2012–2014
   {
     title: "Junior Developer",
     company: "Tata Consultancy Services",
@@ -87,8 +76,6 @@ const roles = [
     ],
     tech: ["Java", "JUnit", "SQL"],
   },
-
-  // 2011–2012
   {
     title: "Infrastructure Technician",
     company: "British Telecom (via TCS)",
@@ -104,8 +91,7 @@ const roles = [
 
 export default function WorkHistory() {
   return (
-    // pass replay to animate again when the section re-enters the viewport
-    <SectionWrapper id="work" title="Work History" replay>
+    <SectionWrapper id="work" title="Work History">
       <div className="grid gap-6 md:grid-cols-2">
         {roles.map((r, i) => (
           <motion.article
@@ -113,7 +99,6 @@ export default function WorkHistory() {
             className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800 hover:shadow-lg transition focus-within:ring-2 ring-brand"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}  // replay on scroll
             transition={{ duration: 0.45, delay: i * 0.06 }}
             tabIndex={0}
           >
