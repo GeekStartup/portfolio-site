@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import SectionWrapper from "./SectionWrapper";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const roles = [
   {
@@ -10,13 +11,11 @@ const roles = [
     date: "2022 – Present",
     bullets: [
       "Designed and owned Spring Boot microservices for PayZapp 2.0 across payments, loyalty, and user subsystems.",
-      "Maintained 60+ REST APIs with strong reliability; drove p95 latency to < 500ms via caching, pooling and query tuning.",
-      "Implemented robust validation, error contracts and observability (structured logging, tracing, alerting).",
-      "Hardened CI/CD pipelines with automated quality gates (Sonar), test suites and safe rollout practices.",
-      "Collaborated with Zeta/NPCI and HDFC stakeholders, translating business requirements into pragmatic designs.",
-      "Mentored engineers on code quality, design patterns, testing discipline and operational readiness.",
+      "Maintained 60+ REST APIs with strong reliability; drove p95 latency to < 500ms.",
+      "Implemented observability with structured logging, tracing, and alerting.",
+      "Hardened CI/CD pipelines with automated quality gates and safe rollout practices.",
+      "Mentored engineers on design, testing, and operational readiness.",
     ],
-    tech: ["Java", "Spring Boot", "Spring Cloud", "REST", "PostgreSQL", "Redis", "Docker", "CI/CD", "SonarQube"],
   },
   {
     title: "Senior Development Engineer",
@@ -24,12 +23,10 @@ const roles = [
     location: "Bengaluru, India",
     date: "2021 – 2022",
     bullets: [
-      "Delivered 20+ region-ready APIs with standardized request/response schemas and versioning strategy.",
-      "Integrated authentication/authorization with AWS Cognito and Auth0; enforced security best practices.",
-      "Improved developer experience with API guidelines, reusable validators and test scaffolding.",
-      "Increased delivery confidence via pipeline automation, code coverage thresholds and static analysis.",
+      "Delivered 20+ APIs with standardized request/response schemas.",
+      "Integrated auth with AWS Cognito and Auth0.",
+      "Improved pipelines with code coverage thresholds and static analysis.",
     ],
-    tech: ["Java", "Spring Boot", "REST", "AWS Cognito", "Auth0", "JUnit", "Postman", "SonarQube"],
   },
   {
     title: "DevOps Engineer",
@@ -37,10 +34,9 @@ const roles = [
     location: "Pune, India",
     date: "2020",
     bullets: [
-      "Streamlined CI/CD workflows, artifact promotions and deployment checks across multiple squads.",
-      "Partnered with application teams to stabilize rollouts, improve monitoring and reduce incident MTTR.",
+      "Streamlined CI/CD workflows, artifact promotions and deployment checks across squads.",
+      "Stabilized rollouts, improved monitoring and reduced incident MTTR.",
     ],
-    tech: ["CI/CD", "Jenkins", "Artifact Repos", "Scripting", "Monitoring"],
   },
   {
     title: "Technical Lead / Senior Developer",
@@ -48,11 +44,10 @@ const roles = [
     location: "Pune, India",
     date: "2016 – 2020",
     bullets: [
-      "Led a distributed team (60+ members) across modules; defined coding standards and code review rigor.",
-      "Introduced CI/CD, automated testing and quality gates; improved cadence and release predictability.",
-      "Guided architecture decisions, component ownership and knowledge share across squads.",
+      "Led a distributed team (60+ members); defined coding standards and review rigor.",
+      "Introduced CI/CD, automated testing and quality gates; improved release predictability.",
+      "Guided architecture, ownership and knowledge sharing across squads.",
     ],
-    tech: ["Java", "Spring", "Selenium", "Service Virtualization (CA LISA)", "CI/CD"],
   },
   {
     title: "Senior Web Developer",
@@ -60,10 +55,9 @@ const roles = [
     location: "India",
     date: "2014 – 2016",
     bullets: [
-      "Delivered full-stack features and defect fixes; focused on performance tuning and reliability.",
+      "Delivered full-stack features and defect fixes; focused on performance and reliability.",
       "Collaborated with QA and business on acceptance criteria and release readiness.",
     ],
-    tech: ["Java", "Web", "SQL", "Testing"],
   },
   {
     title: "Junior Developer",
@@ -71,10 +65,9 @@ const roles = [
     location: "India",
     date: "2012 – 2014",
     bullets: [
-      "Built and maintained modules, wrote integration tests, assisted seniors with performance profiling.",
-      "Participated in code reviews and documentation for knowledge continuity.",
+      "Built and maintained modules; wrote integration tests; assisted with performance profiling.",
+      "Participated in code reviews and documentation for continuity.",
     ],
-    tech: ["Java", "JUnit", "SQL"],
   },
   {
     title: "Infrastructure Technician",
@@ -82,50 +75,55 @@ const roles = [
     location: "India",
     date: "2011 – 2012",
     bullets: [
-      "Supported environment setup, configuration and troubleshooting for network/infrastructure components.",
-      "Partnered with dev teams for environment readiness and deployment coordination.",
+      "Supported environment setup and troubleshooting for network/infrastructure components.",
+      "Coordinated environment readiness and deployments with dev teams.",
     ],
-    tech: ["Networking", "Environments", "Scripting"],
   },
 ];
 
 export default function WorkHistory() {
+  const [openIndex, setOpenIndex] = useState(0); // first item open by default
+
   return (
     <SectionWrapper id="work" title="Work History">
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="space-y-4">
         {roles.map((r, i) => (
-          <motion.article
+          <div
             key={`${r.title}-${r.company}-${r.date}`}
-            className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800 hover:shadow-lg transition focus-within:ring-2 ring-brand"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: i * 0.06 }}
-            tabIndex={0}
+            className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800 hover:shadow-lg transition"
           >
-            <h3 className="text-xl font-semibold">{r.title}</h3>
-            <p className="text-gray-600 dark:text-gray-300">
-              {r.company} • {r.location} • {r.date}
-            </p>
-
-            <ul className="list-disc ml-5 mt-3 text-gray-700 dark:text-gray-200 space-y-1">
-              {r.bullets.map((b) => (
-                <li key={b}>{b}</li>
-              ))}
-            </ul>
-
-            {r.tech && r.tech.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-3">
-                {r.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="px-2 py-1 rounded-full bg-blue-50 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200 text-xs"
-                  >
-                    {t}
-                  </span>
-                ))}
+            <button
+              onClick={() => setOpenIndex(openIndex === i ? null : i)}
+              className="w-full flex justify-between items-center text-left"
+            >
+              <div>
+                <h3 className="text-lg font-semibold">{r.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {r.company} • {r.location} • {r.date}
+                </p>
               </div>
-            )}
-          </motion.article>
+              {openIndex === i ? <FaChevronUp /> : <FaChevronDown />}
+            </button>
+
+            <AnimatePresence initial={false}>
+              {openIndex === i && (
+                <motion.div
+                  key="content"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.28 }}
+                  className="overflow-hidden mt-3"
+                >
+                  <ul className="list-disc ml-5 text-gray-700 dark:text-gray-200 space-y-1">
+                    {r.bullets.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         ))}
       </div>
     </SectionWrapper>

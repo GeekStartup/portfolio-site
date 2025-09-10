@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const links = [
   { name: "Home", id: "hero" },
@@ -15,19 +15,15 @@ export default function Navbar() {
   const [active, setActive] = useState("hero");
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
+  const ticking = useRef(false);
+  const navRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-      { root: null, rootMargin: "0px 0px -60% 0px", threshold: 0.1 }
-    );
-    links.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
+  const sections = useMemo(
+    () => links.map((l) => ({ id: l.id, el: typeof document !== "undefined" ? document.getElementById(l.id) : null })),
+    []
+  );
 
+  // theme init
   useEffect(() => {
     const stored = localStorage.getItem("theme");
     const initial = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -42,8 +38,45 @@ export default function Navbar() {
     localStorage.setItem("theme", next ? "dark" : "light");
   };
 
+  // smooth, stable active link highlighting
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+
+      window.requestAnimationFrame(() => {
+        const navH = navRef.current ? navRef.current.offsetHeight : 64;
+        // anchor line slightly below the navbar (tune if you like)
+        const anchorY = navH + 20;
+
+        let current = "hero";
+        for (const { id, el } of sections) {
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= anchorY && rect.bottom > anchorY) {
+            current = id;
+          } else if (rect.top <= anchorY) {
+            current = id;
+          }
+        }
+        setActive((prev) => (prev === current ? prev : current));
+        ticking.current = false;
+      });
+    };
+
+    handleScroll(); // initial set
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [sections]);
+
+  const onNavClick = () => setOpen(false);
+
   return (
-    <nav className="fixed top-0 w-full bg-white/90 dark:bg-gray-900/80 backdrop-blur shadow z-50">
+    <nav ref={navRef} className="fixed top-0 w-full bg-white/90 dark:bg-gray-900/80 backdrop-blur shadow z-50">
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
         <a href="#hero" className="font-bold text-xl tracking-tight text-gray-900 dark:text-gray-100">
           <span className="text-brand">Ashish</span> Nayak
@@ -55,6 +88,7 @@ export default function Navbar() {
             <li key={l.id}>
               <a
                 href={`#${l.id}`}
+                onClick={onNavClick}
                 className={`transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded ${
                   active === l.id
                     ? "text-brand font-semibold"
@@ -84,7 +118,11 @@ export default function Navbar() {
           >
             {dark ? "🌙" : "☀️"}
           </button>
-          <button aria-label="Toggle menu" className="text-2xl text-gray-800 dark:text-gray-100" onClick={() => setOpen((s) => !s)}>
+          <button
+            aria-label="Toggle menu"
+            className="text-2xl text-gray-800 dark:text-gray-100"
+            onClick={() => setOpen((s) => !s)}
+          >
             {open ? "✕" : "☰"}
           </button>
         </div>
@@ -103,7 +141,7 @@ export default function Navbar() {
                       ? "text-brand font-semibold"
                       : "text-gray-800 dark:text-gray-200 hover:text-brand"
                   }`}
-                  onClick={() => setOpen(false)}
+                  onClick={onNavClick}
                 >
                   {l.name}
                 </a>
