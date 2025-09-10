@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const links = [
   { name: "Home", id: "hero" },
@@ -15,13 +15,7 @@ export default function Navbar() {
   const [active, setActive] = useState("hero");
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
-  const ticking = useRef(false);
   const navRef = useRef(null);
-
-  const sections = useMemo(
-    () => links.map((l) => ({ id: l.id, el: typeof document !== "undefined" ? document.getElementById(l.id) : null })),
-    []
-  );
 
   // theme init
   useEffect(() => {
@@ -38,40 +32,35 @@ export default function Navbar() {
     localStorage.setItem("theme", next ? "dark" : "light");
   };
 
-  // smooth, stable active link highlighting
+  // stable active link highlighting – query elements fresh on scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (ticking.current) return;
-      ticking.current = true;
+      const navH = navRef.current ? navRef.current.offsetHeight : 64;
+      const anchorY = navH + 20; // line used to decide which section is active
 
-      window.requestAnimationFrame(() => {
-        const navH = navRef.current ? navRef.current.offsetHeight : 64;
-        // anchor line slightly below the navbar (tune if you like)
-        const anchorY = navH + 20;
-
-        let current = "hero";
-        for (const { id, el } of sections) {
-          if (!el) continue;
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= anchorY && rect.bottom > anchorY) {
-            current = id;
-          } else if (rect.top <= anchorY) {
-            current = id;
-          }
+      let current = "hero";
+      for (const l of links) {
+        const el = document.getElementById(l.id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= anchorY && rect.bottom > anchorY) {
+          current = l.id;
+        } else if (rect.top <= anchorY) {
+          // if multiple are above, prefer the last one
+          current = l.id;
         }
-        setActive((prev) => (prev === current ? prev : current));
-        ticking.current = false;
-      });
+      }
+      setActive((prev) => (prev === current ? prev : current));
     };
 
-    handleScroll(); // initial set
+    handleScroll(); // set initial
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
-  }, [sections]);
+  }, []);
 
   const onNavClick = () => setOpen(false);
 
