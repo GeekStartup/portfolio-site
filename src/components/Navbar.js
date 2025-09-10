@@ -1,57 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 
-export default function Navbar() {
-  const [active, setActive] = useState("hero");
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      const sections = ["hero", "about", "experience", "skills", "contact"];
-      sections.forEach((id) => {
-        const section = document.getElementById(id);
-        if (section) {
-          const top = section.offsetTop - 100;
-          const bottom = top + section.offsetHeight;
-          if (window.scrollY >= top && window.scrollY < bottom) setActive(id);
-        }
-      });
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+const Navbar = () => {
+  const [open, setOpen] = useState(false);
 
   const links = [
-    { name: "Home", id: "hero" },
-    { name: "About", id: "about" },
-    { name: "Experience", id: "experience" },
-    { name: "Skills", id: "skills" },
-    { name: "Contact", id: "contact" },
+    { name: "Home", href: "#hero" },
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Experience", href: "#experience" },
+    { name: "Projects", href: "#projects" },
+    { name: "Certifications", href: "#certifications" },
+    { name: "Education", href: "#education" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
-    <nav
-      className={`fixed w-full top-0 z-50 transition-all ${
-        scrolled ? "bg-white shadow-md" : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
-        <div className="text-2xl font-bold text-primary">Ashish Nayak</div>
-        <div className="space-x-6">
+    <nav className="fixed w-full bg-white shadow-md z-50">
+      <div className="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
+        <div className="text-xl font-bold">Ashish Nayak</div>
+
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex space-x-6">
           {links.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className={`hover:text-primary transition ${
-                active === link.id ? "text-primary font-semibold" : ""
-              }`}
-            >
-              {link.name}
-            </a>
+            <li key={link.name}>
+              <a
+                href={link.href}
+                className="hover:text-blue-500 transition-colors duration-300"
+              >
+                {link.name}
+              </a>
+            </li>
           ))}
+        </ul>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button onClick={() => setOpen(!open)}>
+            {open ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {open && (
+        <ul className="absolute top-full left-0 w-full bg-white flex flex-col items-center py-4 space-y-4 md:hidden shadow-lg">
+          {links.map((link) => (
+            <li key={link.name}>
+              <a
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="hover:text-blue-500 transition-colors duration-300"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </nav>
   );
-}
+};
+
+export default Navbar;
