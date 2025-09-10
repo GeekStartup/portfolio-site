@@ -23,9 +23,8 @@ export default function Contact() {
       <motion.a
         href="mailto:your.email@example.com"
         className="px-5 py-2 bg-primary text-white rounded-full shadow hover:bg-blue-700 transition transform hover:scale-105"
-        whileHover={{ scale: 1.05 }}
       >
-        Email Me
+        Send Email
       </motion.a>
     </section>
   );
