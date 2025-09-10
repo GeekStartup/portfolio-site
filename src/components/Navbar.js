@@ -16,7 +16,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const navRef = useRef(null);
-  const clickingRef = useRef(false); // temporarily suppress scroll re-highlighting during programmatic scroll
+  const clickingRef = useRef(false);
 
   // theme init
   useEffect(() => {
@@ -33,66 +33,49 @@ export default function Navbar() {
     localStorage.setItem("theme", next ? "dark" : "light");
   };
 
-  // robust active highlight
+  // mid-screen "last section passed" logic
   useEffect(() => {
     const handleScroll = () => {
-      if (clickingRef.current) return; // let the click handler control during smooth scroll
+      if (clickingRef.current) return; // during programmatic scroll from click
 
       const navH = navRef.current ? navRef.current.offsetHeight : 64;
-      const scrollY = window.scrollY;
-      const anchor = scrollY + navH + 6; // “line” below navbar
 
-      // Top: always hero
-      if (scrollY <= 2) {
+      // Anchor ~35% down the viewport, but never above the navbar
+      const anchor =
+        window.scrollY + Math.max(window.innerHeight * 0.35, navH + 8);
+
+      // At very top, force Home
+      if (window.scrollY <= 2) {
         setActive("hero");
         return;
       }
 
-      // Build ordered sections with positions
-      const sections = links
-        .map((l) => {
-          const el = document.getElementById(l.id);
-          if (!el) return null;
-          const top = el.offsetTop;
-          const height = el.offsetHeight || 0;
-          return { id: l.id, top, bottom: top + height };
-        })
-        .filter(Boolean)
-        .sort((a, b) => a.top - b.top);
+      // Determine the last section whose top is <= anchor
+      let current = links[0].id;
+      for (const l of links) {
+        const el = document.getElementById(l.id);
+        if (!el) continue;
+        const top = el.offsetTop; // we already accounted for navbar in anchor
+        if (anchor >= top - 1) current = l.id;
+      }
 
-      if (!sections.length) return;
-
-      // Bottom: ensure last highlights
+      // True bottom-of-page guard: force last item
       const doc = document.documentElement;
-      const scrollBottom = scrollY + window.innerHeight;
+      const scrollBottom = window.scrollY + window.innerHeight;
       const scrollHeight = Math.max(
         doc.scrollHeight,
         doc.offsetHeight,
         doc.clientHeight,
         document.body ? document.body.scrollHeight : 0
       );
-      if (scrollBottom >= scrollHeight - 2) {
-        setActive(sections[sections.length - 1].id);
-        return;
-      }
-
-      // Pick the section whose top is just above the anchor
-      let current = sections[0].id;
-      for (let i = 0; i < sections.length; i++) {
-        if (anchor < sections[i].top) {
-          current = i === 0 ? sections[0].id : sections[i - 1].id;
-          break;
-        }
-        if (i === sections.length - 1) {
-          current = sections[i].id;
-        }
+      if (scrollBottom >= scrollHeight - 1) {
+        current = links[links.length - 1].id;
       }
 
       setActive((prev) => (prev === current ? prev : current));
     };
 
-    // initial sync
-    handleScroll();
+    handleScroll(); // initial sync
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
     return () => {
@@ -101,22 +84,22 @@ export default function Navbar() {
     };
   }, []);
 
-  // click: smooth scroll to exact offset + immediate highlight
+  // click: smooth scroll to an exact offset + immediate highlight
   const onNavClick = (id) => (e) => {
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
 
     const navH = navRef.current ? navRef.current.offsetHeight : 64;
-    const targetTop = el.offsetTop - navH - 6;
+    // Scroll target: element top minus a small cushion under navbar
+    const targetTop = Math.max(el.offsetTop - navH - 6, 0);
 
-    clickingRef.current = true;       // pause scroll-based updates briefly
-    setActive(id);                    // instant feedback
-    setOpen(false);                   // close mobile menu
+    clickingRef.current = true;
+    setActive(id);
+    setOpen(false);
 
-    window.scrollTo({ top: Math.max(targetTop, 0), behavior: "smooth" });
+    window.scrollTo({ top: targetTop, behavior: "smooth" });
 
-    // Re-enable scroll-based updates after the smooth scroll likely completes
     setTimeout(() => {
       clickingRef.current = false;
     }, 450);
