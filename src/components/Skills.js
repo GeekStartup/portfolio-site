@@ -1,21 +1,28 @@
 import React from "react";
 
 const skills = [
-  "JavaScript", "React", "Node.js", "Tailwind CSS", "Python", "Java", "SQL", "Git"
+  "JavaScript",
+  "React",
+  "Node.js",
+  "TypeScript",
+  "HTML/CSS",
+  "Tailwind CSS",
+  "AWS",
+  "Git"
 ];
 
 const Skills = () => {
   return (
-    <section id="skills" className="bg-gray-50 px-4 md:px-20 py-12">
-      <h2 className="text-3xl font-bold mb-6">Skills</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {skills.map((skill) => (
-          <div key={skill} className="bg-white shadow-md rounded-lg p-4 text-center hover:scale-105 transform transition">
+    <aside className="lg:w-1/4 bg-gray-50 p-6 rounded-lg mb-8 lg:mb-0">
+      <h3 className="text-2xl font-semibold mb-4">Skills</h3>
+      <ul className="space-y-2">
+        {skills.map((skill, index) => (
+          <li key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full inline-block">
             {skill}
-          </div>
+          </li>
         ))}
-      </div>
-    </section>
+      </ul>
+    </aside>
   );
 };
 

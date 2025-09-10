@@ -1,20 +1,30 @@
 import React from "react";
 
 const experiences = [
-  { role: "Software Engineer", company: "Company A", duration: "2023-Present", desc: "Worked on full-stack applications." },
-  { role: "Junior Developer", company: "Company B", duration: "2021-2023", desc: "Developed internal tools using React and Node.js." }
+  {
+    role: "Frontend Developer",
+    company: "TechCorp",
+    duration: "Jan 2022 - Present",
+    details: "Developed scalable React applications with responsive UI and REST APIs."
+  },
+  {
+    role: "Software Engineer",
+    company: "InnovateX",
+    duration: "Jun 2020 - Dec 2021",
+    details: "Worked on full-stack projects using Node.js, Express, and MongoDB."
+  }
 ];
 
 const Experience = () => {
   return (
-    <section id="experience" className="px-4 md:px-20 py-12">
+    <section id="experience" className="max-w-4xl mx-auto my-12 px-4">
       <h2 className="text-3xl font-bold mb-6">Experience</h2>
-      <div className="space-y-6">
-        {experiences.map((exp, idx) => (
-          <div key={idx} className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition">
-            <h3 className="font-semibold text-xl">{exp.role} - {exp.company}</h3>
-            <p className="text-gray-500">{exp.duration}</p>
-            <p className="mt-2">{exp.desc}</p>
+      <div className="space-y-4">
+        {experiences.map((exp, index) => (
+          <div key={index} className="border-l-4 border-blue-600 pl-4 py-2 bg-gray-50 rounded shadow-sm">
+            <h3 className="font-semibold text-xl">{exp.role}</h3>
+            <p className="text-gray-600">{exp.company} | {exp.duration}</p>
+            <p className="text-gray-700 mt-1">{exp.details}</p>
           </div>
         ))}
       </div>
