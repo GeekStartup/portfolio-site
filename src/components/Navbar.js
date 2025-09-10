@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
 
-const Navbar = () => {
+const links = [
+  { name: "Home", id: "hero" },
+  { name: "About", id: "about" },
+  { name: "Experience", id: "experience" },
+  { name: "Skills", id: "skills" },
+  { name: "Education", id: "education" },
+  { name: "Certifications", id: "certifications" },
+  { name: "Contact", id: "contact" },
+];
+
+export default function Navbar() {
   const [active, setActive] = useState("hero");
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "skills", "experience", "education", "certifications", "contact"];
-      sections.forEach(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 80 && rect.bottom >= 80) {
-            setActive(section);
+      links.forEach((link) => {
+        const section = document.getElementById(link.id);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 120 && rect.bottom >= 120) {
+            setActive(link.id);
           }
         }
       });
@@ -20,25 +29,20 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const links = [
-    { name: "Home", id: "hero" },
-    { name: "Skills", id: "skills" },
-    { name: "Experience", id: "experience" },
-    { name: "Education", id: "education" },
-    { name: "Certifications", id: "certifications" },
-    { name: "Contact", id: "contact" }
-  ];
-
   return (
     <nav className="fixed top-0 w-full bg-white shadow z-50">
       <div className="max-w-6xl mx-auto flex justify-between items-center px-6 py-3">
         <div className="font-bold text-xl">Ashish Nayak</div>
         <ul className="flex space-x-6">
-          {links.map(link => (
+          {links.map((link) => (
             <li key={link.id}>
               <a
                 href={`#${link.id}`}
-                className={`hover:text-blue-600 ${active === link.id ? "text-blue-600 font-semibold" : "text-gray-800"}`}
+                className={`transition ${
+                  active === link.id
+                    ? "text-blue-600 font-semibold"
+                    : "text-gray-800 hover:text-blue-600"
+                }`}
               >
                 {link.name}
               </a>
@@ -48,6 +52,4 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}
