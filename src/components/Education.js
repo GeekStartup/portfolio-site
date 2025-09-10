@@ -1,22 +1,21 @@
 import React from "react";
 
 const education = [
-  { degree: "B.Tech Computer Science", institute: "ABC University", year: "2016-2020" },
-  { degree: "High School", institute: "XYZ School", year: "2014-2016" },
+  { degree: "B.Tech in Computer Science", institution: "XYZ University", period: "2016 - 2020" }
 ];
 
-const Education = () => (
-  <section id="education" className="py-12">
-    <h2 className="text-2xl font-bold mb-4">Education</h2>
-    <ul className="space-y-2">
+const Education = () => {
+  return (
+    <section id="education" className="py-16 px-4 md:px-16 max-w-4xl mx-auto bg-gray-50">
+      <h2 className="text-3xl font-bold mb-6">Education</h2>
       {education.map((edu, idx) => (
-        <li key={idx}>
-          <p className="font-semibold">{edu.degree}</p>
-          <p className="text-gray-600">{edu.institute} | {edu.year}</p>
-        </li>
+        <div key={idx} className="mb-4">
+          <h3 className="text-xl font-semibold">{edu.degree}</h3>
+          <span className="text-gray-500">{edu.institution} | {edu.period}</span>
+        </div>
       ))}
-    </ul>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Education;

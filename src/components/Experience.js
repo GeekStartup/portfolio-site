@@ -3,33 +3,31 @@ import React from "react";
 const experiences = [
   {
     role: "Full Stack Developer",
-    company: "ABC Corp",
-    duration: "Jan 2022 - Present",
-    projects: ["Project A", "Project B"],
+    company: "TechCorp",
+    period: "Jan 2022 - Present",
+    description: "Built modern web applications using React and Node.js."
   },
   {
     role: "Frontend Developer",
-    company: "XYZ Inc",
-    duration: "Jun 2020 - Dec 2021",
-    projects: ["Project C"],
-  },
+    company: "WebSolutions",
+    period: "Jun 2020 - Dec 2021",
+    description: "Developed responsive interfaces and reusable components."
+  }
 ];
 
-const Experience = () => (
-  <section id="experience" className="py-12">
-    <h2 className="text-2xl font-bold mb-6">Experience & Projects</h2>
-    {experiences.map((exp, idx) => (
-      <div key={idx} className="mb-6">
-        <h3 className="font-semibold">{exp.role} @ {exp.company}</h3>
-        <p className="text-gray-600">{exp.duration}</p>
-        <ul className="list-disc ml-6 mt-2">
-          {exp.projects.map((proj, i) => (
-            <li key={i}>{proj}</li>
-          ))}
-        </ul>
-      </div>
-    ))}
-  </section>
-);
+const Experience = () => {
+  return (
+    <section id="experience" className="py-16 px-4 md:px-16 max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold mb-6">Experience & Projects</h2>
+      {experiences.map((exp, idx) => (
+        <div key={idx} className="mb-6">
+          <h3 className="text-xl font-semibold">{exp.role} - {exp.company}</h3>
+          <span className="text-gray-500">{exp.period}</span>
+          <p className="text-gray-700 mt-2">{exp.description}</p>
+        </div>
+      ))}
+    </section>
+  );
+};
 
 export default Experience;

@@ -1,61 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+
+const links = ["hero", "about", "skills", "experience", "education", "certifications", "contact"];
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const links = ["hero", "experience", "certifications", "education", "contact"];
-
-  const handleScroll = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) setMenuOpen(false);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow z-50">
-      <div className="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
-        <div className="text-xl font-bold cursor-pointer" onClick={() => handleScroll("hero")}>
-          Ashish K Nayak
+    <nav className="fixed w-full bg-white shadow-md z-50">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="font-bold text-xl cursor-pointer" onClick={() => scrollTo("hero")}>
+          Ashish
         </div>
-        <div className="hidden md:flex space-x-6">
+        <ul className="hidden md:flex space-x-6">
           {links.map((link) => (
-            <button
-              key={link}
-              onClick={() => handleScroll(link)}
-              className="hover:text-blue-600 transition"
-            >
+            <li key={link} className="cursor-pointer hover:text-blue-500" onClick={() => scrollTo(link)}>
               {link.charAt(0).toUpperCase() + link.slice(1)}
-            </button>
+            </li>
           ))}
-        </div>
-        <div className="md:hidden">
-          <button onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? "✕" : "☰"}
-          </button>
-        </div>
+        </ul>
       </div>
-      {menuOpen && (
-        <div className="md:hidden flex flex-col bg-white shadow">
-          {links.map((link) => (
-            <button
-              key={link}
-              onClick={() => {
-                handleScroll(link);
-                setMenuOpen(false);
-              }}
-              className="py-2 px-4 hover:bg-gray-100 transition"
-            >
-              {link.charAt(0).toUpperCase() + link.slice(1)}
-            </button>
-          ))}
-        </div>
-      )}
     </nav>
   );
 };

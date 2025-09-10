@@ -1,34 +1,30 @@
 import React from "react";
-import profilePic from "../public/profile.jpg";
+import { motion } from "framer-motion";
+import profilePic from "../assets/profile.jpg";
 
 const Hero = () => {
-  const fallbackPic = "https://via.placeholder.com/150";
+  const fallbackProfile = "https://via.placeholder.com/150";
 
   return (
-    <section id="hero" className="py-12 text-center">
-      <img
-        src={profilePic || fallbackPic}
+    <section id="hero" className="flex flex-col md:flex-row items-center justify-center py-16 px-4 md:px-16">
+      <motion.img
+        src={profilePic || fallbackProfile}
         alt="Profile"
-        className="w-40 h-40 mx-auto rounded-full mb-4"
+        className="w-48 h-48 rounded-full mb-6 md:mb-0 md:mr-12 object-cover shadow-lg"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
       />
-      <h1 className="text-3xl font-bold mb-2">Ashish K Nayak</h1>
-      <p className="text-xl mb-4">Full Stack Developer | React & Node.js</p>
-      <div className="space-x-4">
-        <a
-          href="https://www.linkedin.com/in/ashish-k-nayak/"
-          target="_blank"
-          rel="noreferrer"
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-        >
-          LinkedIn
-        </a>
-        <a
-          href="mailto:ashish@example.com"
-          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
-        >
-          Email
-        </a>
-        <span className="px-4 py-2 bg-gray-200 text-black rounded">+91 12345 67890</span>
+      <div className="text-center md:text-left max-w-xl">
+        <h1 className="text-4xl font-bold mb-4">Ashish K Nayak</h1>
+        <p className="text-lg text-gray-600">
+          Full Stack Developer | React, Node.js, Tailwind CSS
+        </p>
+        <div className="mt-6 flex justify-center md:justify-start space-x-4">
+          <a href="mailto:ashish@example.com" className="text-blue-500 hover:underline">Email</a>
+          <a href="https://www.linkedin.com/in/ashish-k-nayak/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">LinkedIn</a>
+          <span className="text-gray-700">+91 98765 43210</span>
+        </div>
       </div>
     </section>
   );
