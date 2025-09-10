@@ -1,4 +1,3 @@
-import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Experience from "./components/Experience";
@@ -7,8 +6,7 @@ import Contact from "./components/Contact";
 
 function App() {
   return (
-    <div className="scroll-smooth bg-white">
-      <Navbar />
+    <div>
       <Hero />
       <About />
       <Experience />
