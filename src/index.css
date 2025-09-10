@@ -5,3 +5,12 @@
 body {
   font-family: 'Inter', sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  padding-top: 6rem;  /* Matches Bold spacing */
+  padding-bottom: 6rem;
+}
