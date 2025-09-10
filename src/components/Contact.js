@@ -1,23 +1,24 @@
 import React from "react";
-import { FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { FaEnvelope, FaLinkedin, FaPhone } from "react-icons/fa";
 
-const Contact = () => {
+function Contact() {
   return (
-    <section id="contact" className="max-w-4xl mx-auto my-12 px-4 text-center">
+    <section id="contact" className="py-16 px-4 md:px-20">
       <h2 className="text-3xl font-bold mb-4">Contact Me</h2>
-      <div className="flex justify-center gap-6 items-center">
-        <a href="mailto:your.email@example.com" className="text-white bg-blue-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition">
-          <FaEnvelope /> Email
+      <div className="flex items-center space-x-6">
+        <a href="mailto:ashish@example.com">
+          <FaEnvelope size={30} />
         </a>
-        <a href="https://www.linkedin.com/in/ashish-nayak" target="_blank" rel="noopener noreferrer" className="text-white bg-blue-700 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-800 transition">
-          <FaLinkedin /> LinkedIn
+        <a href="https://www.linkedin.com/in/ashish-nayak/" target="_blank" rel="noreferrer">
+          <FaLinkedin size={30} />
         </a>
-        <div className="text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 border border-gray-300">
-          📞 +91 98765 43210
-        </div>
+        <span className="flex items-center space-x-2">
+          <FaPhone size={30} />
+          <span>+91 98765 43210</span>
+        </span>
       </div>
     </section>
   );
-};
+}
 
 export default Contact;

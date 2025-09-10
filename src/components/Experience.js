@@ -1,35 +1,28 @@
 import React from "react";
 
-const experiences = [
-  {
-    role: "Frontend Developer",
-    company: "TechCorp",
-    duration: "Jan 2022 - Present",
-    details: "Developed scalable React applications with responsive UI and REST APIs."
-  },
-  {
-    role: "Software Engineer",
-    company: "InnovateX",
-    duration: "Jun 2020 - Dec 2021",
-    details: "Worked on full-stack projects using Node.js, Express, and MongoDB."
-  }
-];
-
-const Experience = () => {
+function Experience() {
   return (
-    <section id="experience" className="max-w-4xl mx-auto my-12 px-4">
-      <h2 className="text-3xl font-bold mb-6">Experience</h2>
-      <div className="space-y-4">
-        {experiences.map((exp, index) => (
-          <div key={index} className="border-l-4 border-blue-600 pl-4 py-2 bg-gray-50 rounded shadow-sm">
-            <h3 className="font-semibold text-xl">{exp.role}</h3>
-            <p className="text-gray-600">{exp.company} | {exp.duration}</p>
-            <p className="text-gray-700 mt-1">{exp.details}</p>
-          </div>
-        ))}
+    <section id="experience" className="py-16 px-4 md:px-20">
+      <h2 className="text-3xl font-bold mb-4">Experience & Projects</h2>
+      <div>
+        <h3 className="text-xl font-semibold">Senior Developer at XYZ</h3>
+        <p className="text-gray-600">Jan 2020 - Present</p>
+        <ul className="list-disc ml-5 mt-2">
+          <li>Worked on web and mobile applications for fintech clients.</li>
+          <li>Integrated AI features for predictive analytics.</li>
+          <li>Project: Built an internal dashboard to track KPIs for clients.</li>
+        </ul>
+      </div>
+      <div className="mt-6">
+        <h3 className="text-xl font-semibold">Developer at ABC</h3>
+        <p className="text-gray-600">Jun 2017 - Dec 2019</p>
+        <ul className="list-disc ml-5 mt-2">
+          <li>Developed responsive React applications.</li>
+          <li>Collaborated with cross-functional teams on product features.</li>
+        </ul>
       </div>
     </section>
   );
-};
+}
 
 export default Experience;
