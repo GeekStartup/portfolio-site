@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -10,19 +9,21 @@ import Contact from "./components/Contact";
 
 function App() {
   return (
-    <>
+    <div className="App font-sans">
       <Navbar />
-      <div className="max-w-6xl mx-auto px-4 md:flex md:space-x-8">
-        <Skills /> {/* Left sidebar on desktop */}
-        <div className="flex-1">
+      <div className="flex flex-col md:flex-row max-w-6xl mx-auto px-4">
+        <div className="md:w-1/4">
+          <Skills />
+        </div>
+        <div className="md:w-3/4">
           <Hero />
           <Experience />
-          <Education />
           <Certifications />
+          <Education />
           <Contact />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

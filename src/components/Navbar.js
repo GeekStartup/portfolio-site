@@ -1,35 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const links = ["hero", "skills", "experience", "education", "certifications", "contact"];
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const links = ["hero", "experience", "certifications", "education", "contact"];
 
-function Navbar() {
-  const [open, setOpen] = useState(false);
-
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setOpen(false);
+  const handleScroll = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) setMenuOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <nav className="fixed w-full bg-white shadow-md z-50">
-      <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
-        <div className="font-bold text-xl cursor-pointer" onClick={() => scrollTo("hero")}>Ashish</div>
+    <nav className="fixed top-0 left-0 w-full bg-white shadow z-50">
+      <div className="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
+        <div className="text-xl font-bold cursor-pointer" onClick={() => handleScroll("hero")}>
+          Ashish K Nayak
+        </div>
         <div className="hidden md:flex space-x-6">
           {links.map((link) => (
-            <button key={link} onClick={() => scrollTo(link)} className="hover:text-blue-600 transition">{link.charAt(0).toUpperCase() + link.slice(1)}</button>
+            <button
+              key={link}
+              onClick={() => handleScroll(link)}
+              className="hover:text-blue-600 transition"
+            >
+              {link.charAt(0).toUpperCase() + link.slice(1)}
+            </button>
           ))}
         </div>
-        <button className="md:hidden" onClick={() => setOpen(!open)}>☰</button>
+        <div className="md:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? "✕" : "☰"}
+          </button>
+        </div>
       </div>
-      {open && (
-        <div className="flex flex-col items-center bg-white shadow-md md:hidden py-4">
+      {menuOpen && (
+        <div className="md:hidden flex flex-col bg-white shadow">
           {links.map((link) => (
-            <button key={link} onClick={() => scrollTo(link)} className="py-2">{link.charAt(0).toUpperCase() + link.slice(1)}</button>
+            <button
+              key={link}
+              onClick={() => {
+                handleScroll(link);
+                setMenuOpen(false);
+              }}
+              className="py-2 px-4 hover:bg-gray-100 transition"
+            >
+              {link.charAt(0).toUpperCase() + link.slice(1)}
+            </button>
           ))}
         </div>
       )}
     </nav>
   );
-}
+};
 
 export default Navbar;
