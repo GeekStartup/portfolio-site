@@ -1,91 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
 
-function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("hero");
-
+const Navbar = () => {
+  const [active, setActive] = useState("");
   const links = [
-    { name: "Home", href: "hero" },
-    { name: "About", href: "about" },
-    { name: "Experience", href: "experience" },
-    { name: "Education", href: "education" },
-    { name: "Certifications", href: "certifications" },
-    { name: "Contact", href: "contact" },
+    { id: "hero", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "experience", label: "Experience" },
+    { id: "projects", label: "Projects" },
+    { id: "skills", label: "Skills" },
+    { id: "contact", label: "Contact" },
   ];
 
-  // Smooth scroll
-  const handleScroll = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-      setOpen(false);
-    }
-  };
-
-  // Highlight active section on scroll
+  // Track active section on scroll
   useEffect(() => {
-    const handleActive = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
-      links.forEach((link) => {
-        const section = document.getElementById(link.href);
-        if (section) {
-          const { offsetTop, offsetHeight } = section;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActive(link.href);
-          }
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const sections = document.querySelectorAll("section");
+      sections.forEach((section) => {
+        if (
+          scrollPosition >= section.offsetTop - 100 &&
+          scrollPosition < section.offsetTop + section.offsetHeight - 100
+        ) {
+          setActive(section.id);
         }
       });
     };
-
-    window.addEventListener("scroll", handleActive);
-    return () => window.removeEventListener("scroll", handleActive);
-  }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // links are static, no need to add them here
 
   return (
     <nav className="fixed w-full bg-white shadow z-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center h-16">
-        <div className="text-xl font-bold">Ashish Nayak</div>
-
-        {/* Desktop links */}
-        <div className="hidden md:flex space-x-6">
-          {links.map((link) => (
-            <button
-              key={link.name}
-              onClick={() => handleScroll(link.href)}
+      <ul className="flex justify-center space-x-6 py-4">
+        {links.map((link) => (
+          <li key={link.id}>
+            <a
+              href={`#${link.id}`}
               className={`${
-                active === link.href ? "text-blue-600 font-semibold" : "text-gray-700"
-              } hover:text-blue-600 transition`}
+                active === link.id ? "text-blue-600 font-bold" : "text-gray-700"
+              } hover:text-blue-600`}
             >
-              {link.name}
-            </button>
-          ))}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden" onClick={() => setOpen(!open)}>
-          {open ? <FaTimes size={24} /> : <FaBars size={24} />}
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {open && (
-        <div className="md:hidden bg-white shadow-lg">
-          {links.map((link) => (
-            <button
-              key={link.name}
-              onClick={() => handleScroll(link.href)}
-              className={`block w-full text-left px-4 py-3 border-b hover:bg-gray-100 ${
-                active === link.href ? "text-blue-600 font-semibold" : "text-gray-700"
-              }`}
-            >
-              {link.name}
-            </button>
-          ))}
-        </div>
-      )}
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
-}
+};
 
 export default Navbar;
