@@ -32,28 +32,24 @@ export default function Navbar() {
     localStorage.setItem("theme", next ? "dark" : "light");
   };
 
-  // stable active link highlighting – query elements fresh on scroll
+  // correct active link highlighting
   useEffect(() => {
     const handleScroll = () => {
       const navH = navRef.current ? navRef.current.offsetHeight : 64;
-      const anchorY = navH + 20; // line used to decide which section is active
+      const scrollPos = window.scrollY + navH + 10; // adjust buffer
+      let current = links[0].id;
 
-      let current = "hero";
       for (const l of links) {
         const el = document.getElementById(l.id);
         if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= anchorY && rect.bottom > anchorY) {
-          current = l.id;
-        } else if (rect.top <= anchorY) {
-          // if multiple are above, prefer the last one
-          current = l.id;
+        if (scrollPos >= el.offsetTop) {
+          current = l.id; // last section passed becomes current
         }
       }
-      setActive((prev) => (prev === current ? prev : current));
+      setActive(current);
     };
 
-    handleScroll(); // set initial
+    handleScroll(); // run once
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
     return () => {
